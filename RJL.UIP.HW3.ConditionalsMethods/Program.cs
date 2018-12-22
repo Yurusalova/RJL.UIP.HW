@@ -11,22 +11,22 @@ namespace RJL.HW3.ConditionalsMethods
         static void Main(string[] args)
         {
             Random randomizer = new Random();
-            //// task1 difference between while and do..while
-            //int intValueExample1Task1 = 10;
-            //int intValueExample2Task1 = 10;
-            //do
-            //{
-            //    intValueExample1Task1++;
-            //} while (intValueExample1Task1 < 10);
+            // task1 difference between while and do..while
+            int intValueExample1Task1 = 10;
+            int intValueExample2Task1 = 10;
+            do
+            {
+                intValueExample1Task1++;
+            } while (intValueExample1Task1 < 10);
 
-            //while (intValueExample2Task1 < 10)
-            //{
-            //    intValueExample2Task1++;
-            //}
-            //Console.WriteLine("task1");
-            //Console.WriteLine("In case of do..while ExampleValue= " + intValueExample1Task1);
-            //Console.WriteLine("In case of while ExampleValue= " + intValueExample2Task1);
-            //Console.WriteLine("-------------------------------------------------------------");
+            while (intValueExample2Task1 < 10)
+            {
+                intValueExample2Task1++;
+            }
+            Console.WriteLine("task1");
+            Console.WriteLine("In case of do..while ExampleValue= " + intValueExample1Task1);
+            Console.WriteLine("In case of while ExampleValue= " + intValueExample2Task1);
+            Console.WriteLine("-------------------------------------------------------------");
 
             //task2
             int randomIntFactorialTask2 = randomizer.Next(1, 50);
@@ -35,81 +35,92 @@ namespace RJL.HW3.ConditionalsMethods
             Console.WriteLine("task2");
             Console.WriteLine($"Factorial of number {randomIntFactorialTask2} = {resultFactorialTask2}");
             Console.WriteLine("-------------------------------------------------------------");
-            //// task3
-            //int randomIntFibonachiTask3 = randomizer.Next(1, 10);
-            //int[] resultFibonachiTask3 = new int[randomIntFibonachiTask3];
-            //Console.WriteLine("task3");
-            //Console.Write($"Fibonacci sequence with length {randomIntFibonachiTask3} = ");
-            //for (int i = resultFibonachiTask3.Length - 1; i >= 0; i--)
-            //{
-            //    resultFibonachiTask3[i] = GetFibonachi(randomIntFibonachiTask3 - 1 - i);
-            //    Console.Write(" " + resultFibonachiTask3[i]);
-            //}
-            //Console.WriteLine();
-            //Console.WriteLine("-------------------------------------------------------------");
-            ////task4
-            //int inputYearValueTask4;
-            //int inputMonthValueTask4;
-            //int resultCountDaysTask4;
-            //Console.WriteLine("Task4");
-            //Console.WriteLine("Enter value for Year");
-            //string inputStringYear = Console.ReadLine();
-            //bool isSuccessYear = int.TryParse(inputStringYear, out inputYearValueTask4);
-            //Console.WriteLine("Enter value for Month");
-            //string inputStringMonth = Console.ReadLine();
-            //bool isSuccessMonth = int.TryParse(inputStringMonth, out inputMonthValueTask4);
-            //resultCountDaysTask4 = GetCountDays(inputYearValueTask4, inputMonthValueTask4);
-            //Console.WriteLine($"{inputYearValueTask4} year {inputMonthValueTask4} month contains {resultCountDaysTask4} days");
-            //Console.WriteLine("-------------------------------------------------------------");
-            //// task5
-            //Console.WriteLine("Task5");
-            //int[] randomArrayTask5 = CreateRandomArray();
-            //Console.WriteLine("Random current array is");
-            //PrintArray(randomArrayTask5);
-            //int[] sortArrayTask5 = randomArrayTask5;
-            //QuickSortArray(sortArrayTask5, 0, randomArrayTask5.Length - 1);
-            //Console.WriteLine();
-            //Console.WriteLine("Sorted array is ");
-            //PrintArray(sortArrayTask5);
-            //Console.WriteLine();
-            //Console.WriteLine("-------------------------------------------------------------");
-            ////task6
-            //Console.WriteLine("Task6");
-            //int[] randomArrayTask6 = CreateRandomArray();
-            //Console.WriteLine("Random current array is");
-            //PrintArray(randomArrayTask6);
-            //Console.WriteLine();
-            //SetNullMinMaxArray(randomArrayTask6);
-            //Console.WriteLine("Array with null value between min and max is");
-            //PrintArray(randomArrayTask6);
-            //Console.WriteLine();
-            //Console.WriteLine("-------------------------------------------------------------");
-            ////task7
-            //Console.WriteLine("Task7");
-            //int randomArrayLengthTask7 = randomizer.Next(1, 10);
-            //int[][] randomArrayTask7 = new int[randomArrayLengthTask7][];
-            //Console.WriteLine("Current random array of arrays is");
-            //for (int i = 0; i < randomArrayLengthTask7; i++)
-            //{
-            //    randomArrayTask7[i] = CreateRandomArray();
-            //    PrintArray(randomArrayTask7[i]);
-            //    Console.WriteLine();
-            //}
-            //Console.WriteLine("Array after sorting");
-            //for (int i = 0; i < randomArrayLengthTask7; i++)
-            //{
-            //    QuickSortArray(randomArrayTask7[i], 0, randomArrayTask7[i].Length - 1);
-            //    PrintArray(randomArrayTask7[i]);
-            //    Console.WriteLine();
-            //}
-            //Console.WriteLine("-------------------------------------------------------------");
-            ////task8
-            //Console.WriteLine("Task8");
-            //string[] multiplyTableArrayTask8 = GetMultiplyTable(15);
-            //foreach (string item in multiplyTableArrayTask8)
-            //{
-            //    Console.WriteLine(item);
-            //}
+            // task3
+            int randomIntFibonachiTask3 = randomizer.Next(1, 10);
+            int[] resultFibonachiTask3 = new int[randomIntFibonachiTask3];
+            Console.WriteLine("task3");
+            Console.Write($"Fibonacci sequence with length {randomIntFibonachiTask3} = ");
+            resultFibonachiTask3 = GetFibonachiSequence(randomIntFibonachiTask3);
+            PrintArray(resultFibonachiTask3);
+            Console.WriteLine();
+            Console.WriteLine("-------------------------------------------------------------");
+            //task4
+            int inputYearValueTask4;
+            int inputMonthValueTask4;
+            int resultCountDaysTask4;
+            Console.WriteLine("Task4");
+            Console.WriteLine("Enter value for Year");
+            string inputStringYear = Console.ReadLine();
+            bool isSuccessYear = int.TryParse(inputStringYear, out inputYearValueTask4);
+            Console.WriteLine("Enter value for Month");
+            string inputStringMonth = Console.ReadLine();
+            bool isSuccessMonth = int.TryParse(inputStringMonth, out inputMonthValueTask4);
+            resultCountDaysTask4 = GetCountDaysInMonthYear(inputYearValueTask4, inputMonthValueTask4);
+            Console.WriteLine($"{inputYearValueTask4} year {inputMonthValueTask4} month contains {resultCountDaysTask4} days");
+            Console.WriteLine("-------------------------------------------------------------");
+            // task5
+            Console.WriteLine("Task5");
+            int[] randomArrayTask5 = CreateRandomArray();
+            Console.WriteLine("Random current array is");
+            PrintArray(randomArrayTask5);
+            int[] sortArrayTask5 = randomArrayTask5;
+            QuickSortArray(sortArrayTask5, 0, randomArrayTask5.Length - 1);
+            Console.WriteLine();
+            Console.WriteLine("Sorted array is ");
+            PrintArray(sortArrayTask5);
+            Console.WriteLine();
+            Console.WriteLine("-------------------------------------------------------------");
+            //task6
+            Console.WriteLine("Task6");
+            int[] randomArrayTask6 = CreateRandomArray();
+            int tempIndex;
+            Console.WriteLine("Random current array is");
+            PrintArray(randomArrayTask6);
+            Console.WriteLine();
+            int minIndexInRandomArray = GetMinMaxIndexInArray(randomArrayTask6)[0];
+            int maxIndexInRandomArray = GetMinMaxIndexInArray(randomArrayTask6)[1];
+            Console.WriteLine($"Min value of array is {randomArrayTask6[minIndexInRandomArray]} with index {minIndexInRandomArray}");
+            Console.WriteLine($"Max value of array is {randomArrayTask6[maxIndexInRandomArray]} with index {maxIndexInRandomArray}");
+            if (minIndexInRandomArray > maxIndexInRandomArray)
+            {
+                tempIndex = minIndexInRandomArray;
+                minIndexInRandomArray = maxIndexInRandomArray;
+                maxIndexInRandomArray = tempIndex;
+            }
+            for (int i = minIndexInRandomArray + 1; i < maxIndexInRandomArray; i++)
+            {
+                randomArrayTask6[i] = 0;
+            }
+            Console.WriteLine("Array with null value between min and max is");
+            PrintArray(randomArrayTask6);
+            Console.WriteLine();
+            Console.WriteLine("-------------------------------------------------------------");
+            //task7
+            Console.WriteLine("Task7");
+            int randomArrayLengthTask7 = randomizer.Next(1, 10);
+            int[][] randomArrayTask7 = new int[randomArrayLengthTask7][];
+            Console.WriteLine("Current random array of arrays is");
+            for (int i = 0; i < randomArrayLengthTask7; i++)
+            {
+                randomArrayTask7[i] = CreateRandomArray();
+                PrintArray(randomArrayTask7[i]);
+                Console.WriteLine();
+            }
+            Console.WriteLine("Array after sorting");
+            for (int i = 0; i < randomArrayLengthTask7; i++)
+            {
+                QuickSortArray(randomArrayTask7[i], 0, randomArrayTask7[i].Length - 1);
+                PrintArray(randomArrayTask7[i]);
+                Console.WriteLine();
+            }
+            Console.WriteLine("-------------------------------------------------------------");
+            //task8
+            Console.WriteLine("Task8");
+            string[] multiplyTableArrayTask8 = GetMultiplyTable(15);
+            foreach (string item in multiplyTableArrayTask8)
+            {
+                Console.WriteLine(item);
+            }
             Console.ReadLine();
         }
 
@@ -118,19 +129,19 @@ namespace RJL.HW3.ConditionalsMethods
             double resultFactorial = (inputIntFactorial == 1)?1:(inputIntFactorial * GetFactorial(inputIntFactorial - 1));
             return resultFactorial;
         }
-        static int GetFibonachi(int inputIntFibonachi)
+        static int[] GetFibonachiSequence(int inputIntFibonachi)
         {
-            if (inputIntFibonachi <= 1)
+            int[] resultFibonachi = new int[inputIntFibonachi];
+            for (int i = 0; i <inputIntFibonachi; i++)
             {
-                return inputIntFibonachi;
+                resultFibonachi[i] = (i <= 1) ? i : (GetFibonachiSequence(inputIntFibonachi-2)[i-2] + GetFibonachiSequence(inputIntFibonachi-1)[i-1]);
             }
-            int resultFibonachi = GetFibonachi(inputIntFibonachi - 2) + GetFibonachi(inputIntFibonachi - 1);
             return resultFibonachi;
         }
-        static int GetCountDays(int year, int month)
+        static int GetCountDaysInMonthYear(int year, int month)
         {
             int resultcountdays = 0;
-            if (month != 2)
+            if (month != 2&&month<13)
             {
                 resultcountdays = (month % 2 != 0 && month < 8) || (month % 2 == 0 && month >= 8) ? 31 : 30;
             }
@@ -140,34 +151,40 @@ namespace RJL.HW3.ConditionalsMethods
             }
             return resultcountdays;
         }
-        static void QuickSortArray(int[] inputArray, int firstIndex, int lastIndex)
+        static void QuickSortArray(int[] inputArray, int firstIndexForSort, int lastIndexForSort)
         {
 
-            int middleValue = inputArray[(firstIndex + lastIndex) / 2];
-            int i = firstIndex;
-            int j = lastIndex;
+            int middleValue = inputArray[(firstIndexForSort + lastIndexForSort) / 2];
+            int firstCurrentIndex = firstIndexForSort;
+            int lastCurrentIndex = lastIndexForSort;
 
-            while (i <= j)
+            while (firstCurrentIndex <= lastCurrentIndex)
             {
-                while (middleValue > inputArray[i])
+                while (middleValue > inputArray[firstCurrentIndex])
                 {
-                    i++;
+                    firstCurrentIndex++;
                 }
-                while (middleValue < inputArray[j])
+                while (middleValue < inputArray[lastCurrentIndex])
                 {
-                    j--;
+                    lastCurrentIndex--;
                 }
-                if (i <= j)
+                if (firstCurrentIndex <= lastCurrentIndex)
                 {
-                    int tempItemValue = inputArray[i];
-                    inputArray[i] = inputArray[j];
-                    inputArray[j] = tempItemValue;
-                    i++;
-                    j--;
+                    int tempItemValue = inputArray[firstCurrentIndex];
+                    inputArray[firstCurrentIndex] = inputArray[lastCurrentIndex];
+                    inputArray[lastCurrentIndex] = tempItemValue;
+                    firstCurrentIndex++;
+                    lastCurrentIndex--;
                 }
             }
-            if (j > firstIndex) QuickSortArray(inputArray, firstIndex, j);
-            if (i < lastIndex) QuickSortArray(inputArray, i, lastIndex);
+            if (lastCurrentIndex > firstIndexForSort)
+            {
+                QuickSortArray(inputArray, firstIndexForSort, lastCurrentIndex);
+            }
+            if (firstCurrentIndex < lastIndexForSort)
+            {
+                QuickSortArray(inputArray, firstCurrentIndex, lastIndexForSort);
+            }
         }
 
         static void PrintArray(int[] inputArrayPrint)
@@ -184,30 +201,26 @@ namespace RJL.HW3.ConditionalsMethods
             int[] randomArray = new int[randomArrayLength];
             for (int i = 0; i < randomArrayLength; i++)
             {
-                randomArray[i] = randomizer.Next(0, 9);
+                randomArray[i] = randomizer.Next(0, 20);
             }
             return randomArray;
         }
-        static void SetNullMinMaxArray(int[] inputArray)
+        static int[] GetMinMaxIndexInArray(int[] inputArray)
         {
             int maxValueIndex = 0;
             int minValueIndex = 0;
-            int tempIndex;
-            for (int i = 0; i < inputArray.Length - 1; i++)
+            int[] minMaxIndexArray = new int[2];
+
+            for (int i = 1; i < inputArray.Length - 1; i++)
             {
-                minValueIndex = (inputArray[i + 1] >= inputArray[minValueIndex]) ? minValueIndex : i + 1;
-                maxValueIndex = (inputArray[i + 1] > inputArray[maxValueIndex]) ? i + 1 : maxValueIndex;
+                minValueIndex = (inputArray[i] >= inputArray[minValueIndex]) ? minValueIndex :i;
+                maxValueIndex = (inputArray[i] > inputArray[maxValueIndex]) ? i : maxValueIndex;
             }
-            if (minValueIndex > maxValueIndex)
-            {
-                tempIndex = minValueIndex;
-                minValueIndex = maxValueIndex;
-                maxValueIndex = tempIndex;
-            }
-            for (int i = minValueIndex + 1; i < maxValueIndex; i++)
-            {
-                inputArray[i] = 0;
-            }
+ 
+            minMaxIndexArray[0] = minValueIndex;
+            minMaxIndexArray[1] = maxValueIndex;
+
+            return minMaxIndexArray;
         }
         static string[] GetMultiplyTable(int countPeople)
         {
@@ -219,23 +232,30 @@ namespace RJL.HW3.ConditionalsMethods
             string[] tempStringMultiplyArray = new string[countPeople];
             for (int i = 0; i < countPeople; i++)
             {
-                bool compareArrayItem = false;
-                do
+               do
                 {
                     firstValueTable = randomizer.Next(1, 9);
                     secondValueTable = randomizer.Next(1, 9);
                     resultMultiply = firstValueTable * secondValueTable;
                     resultStringMultiplyArray[i] = firstValueTable + "*" + secondValueTable + "=" + resultMultiply;
                     tempStringMultiplyArray[i] = secondValueTable + "*" + firstValueTable + "=" + resultMultiply;
-
-                    for (int j = 0; j < countPeople; j++)
-                    {
-                        compareArrayItem = ((resultStringMultiplyArray[i] == resultStringMultiplyArray[j]) || (tempStringMultiplyArray[i] == resultStringMultiplyArray[j])) && i != j;
-                    }
                 }
-                while (compareArrayItem);
+                while (CheckEqualArray(resultStringMultiplyArray, tempStringMultiplyArray, resultStringMultiplyArray[i],i));
             }
             return resultStringMultiplyArray;
+        }
+        static bool CheckEqualArray(string[] FirstArrayForCheck, string[] SecondArrayforCheck, string valueForCheck, int indexOfArray)
+        {
+            bool isEqualArray = false;
+            for (int i = 0; i < FirstArrayForCheck.Length; i++)
+            {
+                if (((FirstArrayForCheck[i] == valueForCheck) || (SecondArrayforCheck[i] == valueForCheck)) && i != indexOfArray)
+                {
+                    isEqualArray=true;
+                }
+               
+            }
+            return isEqualArray;
         }
     }
 }
