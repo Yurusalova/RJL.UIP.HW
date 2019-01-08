@@ -20,6 +20,7 @@ namespace RJL.HW4.OOP.Classes.Task2
         public int  GetAgregatAssembly(int tempCountDetails,int generalCountDetail)
         {
             int workerCountDetails;
+            int workerCurrentCountDetails = 0;
             switch (this.Experience)
             {
                 case "experienced":
@@ -35,21 +36,22 @@ namespace RJL.HW4.OOP.Classes.Task2
                     workerCountDetails = 0;
                     break;
             }
-            {
+            
                 for (int i = 1; i <= workerCountDetails; i++)
                 {
                     
                     tempCountDetails ++;
+                    workerCurrentCountDetails = i;
                     if (tempCountDetails == generalCountDetail) {
-                        Console.WriteLine($"Worker {this.Name} added {workerCountDetails} detail(s) to Agregat");
+                        Console.WriteLine($"Worker {this.Name} added {workerCurrentCountDetails} detail(s) to Agregat");
                         Console.WriteLine("----------------------------------------------------------");
                         Console.WriteLine("Agregat has been assembled");
                         Console.WriteLine("----------------------------------------------------------");
                         return tempCountDetails;
                     }
                 }
-                Console.WriteLine($"Worker {this.Name} added {workerCountDetails} detail(s) to Agregat");
-            }
+                Console.WriteLine($"Worker {this.Name} added {workerCurrentCountDetails} detail(s) to Agregat");
+            
             return tempCountDetails;
         }
     }

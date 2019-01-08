@@ -8,16 +8,18 @@ namespace RJL.HW4.OOP.Classes.Task2
 {
     class Agregat
     {
-        public int AgregatCountDetails;
-        public Agregat(int agregatCountDetails)
+        public int GeneralCountDetails { get; private set;}
+        public int CurrentAssembledDetails { get; set;}
+        public Agregat(int agregatCountDetails, int currentAssembledDetails)
         {
-            this.AgregatCountDetails = agregatCountDetails;
+            this.GeneralCountDetails = agregatCountDetails;
+            this.CurrentAssembledDetails = currentAssembledDetails;
+
         }
-       //public decimal getCountDaysForAssembly(int agregatCountDetails, int countDetailsPerDay)
-       // {
-       //     decimal temp = agregatCountDetails / countDetailsPerDay;
-       //     decimal countDaysForAssembly = Math.Ceiling(temp);
-       //     return countDaysForAssembly;
-       // }
+        public bool IsAgregateAssambled()
+        {
+            return this.CurrentAssembledDetails == this.GeneralCountDetails;
+        }
+
     }
 }

@@ -10,11 +10,20 @@ namespace RJL.HW4.OOP.Classes.Task2
     {
         static void Main(string[] args)
         {
-            Agregat Agregat1 = new Agregat(20);
-            Console.WriteLine($"Agregat contains {Agregat1.AgregatCountDetails} details");
-            int countJunWorker = 5;
-            int countMiddleWorker = 3;
-            int countSeniourWorker = 2;
+            Agregat Agregat1 = new Agregat(20,0);
+            Console.WriteLine($"Agregat contains {Agregat1.GeneralCountDetails} details");
+            Console.WriteLine("-----------------------------------------------------");
+            Worker[] workers1 = GetWorkers(5, 4, 3);
+            Console.WriteLine("Team consists of:");
+            PrintWorkersTeam(workers1);
+            Console.WriteLine("-----------------------------------------------------");
+            Console.WriteLine("Assembly of agregat has been started");
+            Console.WriteLine("-----------------------------------------------------");
+            GetAssemledAgregat(Agregat1, workers1);
+            Console.ReadLine();
+        }
+        static Worker[] GetWorkers(int countJunWorker, int countMiddleWorker, int countSeniourWorker)
+        {
             int indexJunName = 1;
             int indexMidName = 1;
             int indexSenName = 1;
@@ -38,31 +47,31 @@ namespace RJL.HW4.OOP.Classes.Task2
                 workers[i] = new Worker("SeniourWorkerName_" + indexSenName, "master");
                 indexSenName++;
             }
-            Console.WriteLine("-----------------------------------------------------");
-            Console.WriteLine("Team consists of:");
-            for (int i = 0; i < sumCountWorkers; i++)
+            return workers;
+        }
+        static void GetAssemledAgregat(Agregat agregate, Worker[] workersTeam)
+        {
+            while (agregate.CurrentAssembledDetails < agregate.GeneralCountDetails)
             {
-                Console.WriteLine(i+1+".  "+workers[i].Name+"   "+ workers[i].Experience);
-            }
-            Console.WriteLine("-----------------------------------------------------");
-            Console.WriteLine("Assembly of agregat has been started");
-            Console.WriteLine("-----------------------------------------------------");
-            int tempCountDetails = 0;
-            while (tempCountDetails < Agregat1.AgregatCountDetails) 
-            {
-                for (int i = 0; i < sumCountWorkers; i++)
+                for (int i = 0; i < workersTeam.Length; i++)
                 {
-                    tempCountDetails = workers[i].GetAgregatAssembly(tempCountDetails, Agregat1.AgregatCountDetails);
-                    if (tempCountDetails ==sumCountWorkers)
+                    agregate.CurrentAssembledDetails = workersTeam[i].GetAgregatAssembly(agregate.CurrentAssembledDetails, agregate.GeneralCountDetails);
+                    if (agregate.IsAgregateAssambled())
                     {
-                       break;
+                        Console.WriteLine("General count of assembled details is " + agregate.CurrentAssembledDetails);
+                        break;
                     }
-                   
-                    Console.WriteLine("Current count of assembled details is "+tempCountDetails);
-                    
+                    Console.WriteLine("Current count of assembled details is " + agregate.CurrentAssembledDetails);
+
                 }
-            } 
-            Console.ReadLine();
+            }
+        }
+        static void PrintWorkersTeam(Worker[] workersTeam)
+        {
+            for (int i = 0; i < workersTeam.Length; i++)
+            {
+                Console.WriteLine(i + 1 + ".  " + workersTeam[i].Name + "   " + workersTeam[i].Experience);
+            }
         }
 
     }

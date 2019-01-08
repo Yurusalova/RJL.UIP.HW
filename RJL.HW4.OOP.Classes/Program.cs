@@ -38,8 +38,10 @@ namespace RJL.HW4.OOP.Classes.Task1
             Console.WriteLine("CRTTV 1: " + descriptionCRTTV1);
             Console.WriteLine("CRTTV 2: " + descriptionCRTTV2);
             Console.WriteLine("------------------------------------------------------------------");
-            Player Player1 = new Player("Google Chromecast", "20W", "all");
-            Player Player2 = new Player("Xiaomi Mi", "15W", "all");
+            Format Format1 = new Format("mp3", 128);
+            Format Format2 = new Format("mp3", 256);
+            Player Player1 = new Player("Google Chromecast", "20W", Format1);
+            Player Player2 = new Player("Xiaomi Mi", "15W", Format2);
             string descriptionPlayer1 = Player1.GetDescription();
             string descriptionPlayer2 = Player2.GetDescription();
             Console.WriteLine("Player 1: " + descriptionPlayer1);
@@ -62,8 +64,7 @@ namespace RJL.HW4.OOP.Classes.Task1
         }
         public string GetDescription()
         {
-            string description = $"model  {this.Model}, power {this.Power}, RAM {this.RAM}, weight {this.Weight}";
-            return description;
+            return $"model  {this.Model}, power {this.Power}, RAM {this.RAM}, weight {this.Weight}";
         }
     }
     public class Server
@@ -81,8 +82,7 @@ namespace RJL.HW4.OOP.Classes.Task1
         }
         public string GetDescription()
         {
-            string description = $"model {this.Model}, power {this.Power}, RAM {this.RAM}, the count of proccessors {this.ProcCount}";
-            return description;
+            return $"model {this.Model}, power {this.Power}, RAM {this.RAM}, the count of proccessors {this.ProcCount}";
         }
     }
     public class PlazmTV
@@ -100,8 +100,7 @@ namespace RJL.HW4.OOP.Classes.Task1
         }
         public string GetDescription()
         {
-            string description = $"model {this.Model}, power {this.Power}, diagonal {this.Diagonal}, screen resolution {this.Resolution}";
-            return description;
+            return $"model {this.Model}, power {this.Power}, diagonal {this.Diagonal}, screen resolution {this.Resolution}";
         }
     }
     public class CRTTV
@@ -119,16 +118,15 @@ namespace RJL.HW4.OOP.Classes.Task1
         }
         public string GetDescription()
         {
-            string description = $"model {this.Model}, power {this.Power}, diagonal {this.Diagonal}, scanning frequency {this.Frequency}";
-            return description;
+            return $"model {this.Model}, power {this.Power}, diagonal {this.Diagonal}, scanning frequency {this.Frequency}";
         }
     }
     public class Player
     {
         public string Model { get; private set; }
         public string Power { get; private set; }
-        public string Formats { get; private set; }
-        public Player(string model, string power, string formats)
+        public Format Formats { get; private set; }
+        public Player(string model, string power, Format formats)
         {
             this.Model = model;
             this.Power = power;
@@ -136,8 +134,17 @@ namespace RJL.HW4.OOP.Classes.Task1
         }
         public string GetDescription()
         {
-            string description = $"model {this.Model}, power {this.Power}, playback formats {this.Formats}";
-            return description;
+            return $"model {this.Model}, power {this.Power}, playback formats {this.Formats.Name} {this.Formats.Bitrate} kbps";
+        }
+    }
+    public class Format
+    {
+        public string Name { get; private set; }
+        public int Bitrate { get; private set; }
+        public Format(string name, int bitrate)
+        {
+            this.Name = name;
+            this.Bitrate = bitrate;
         }
     }
 }
