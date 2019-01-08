@@ -10,66 +10,63 @@ namespace RJL.HW4.OOP.Classes.Task2
     {
         static void Main(string[] args)
         {
-            Agregat Agregat1 = new Agregat(10);
+            Agregat Agregat1 = new Agregat(20);
             Console.WriteLine($"Agregat contains {Agregat1.AgregatCountDetails} details");
-            
-            Worker worker1 = new Worker("experienced");
-            int worker1CountDetailPerDay = worker1.GetWorkerCountDetailsPerDay(worker1.WorkerExperience);
-            decimal worker1CountDaysForAssembly = Agregat1.getCountDaysForAssembly(Agregat1.AgregatCountDetails, worker1CountDetailPerDay);
-            Console.WriteLine($"Worker1 is {worker1.WorkerExperience}. He will assembly aggregate for  {worker1CountDaysForAssembly} days");
-            Worker worker2 = new Worker("inexperienced");
-            int worker2CountDetailPerDay = worker1.GetWorkerCountDetailsPerDay(worker2.WorkerExperience);
-            decimal worker2CountDaysForAssembly = Agregat1.getCountDaysForAssembly(Agregat1.AgregatCountDetails, worker2CountDetailPerDay);
-            Console.WriteLine($"Worker2 is {worker2.WorkerExperience}. He will assembly aggregate for  {worker2CountDaysForAssembly} days");
-            Worker worker3 = new Worker("master");
-            int worker3CountDetailPerDay = worker3.GetWorkerCountDetailsPerDay(worker3.WorkerExperience);
-            decimal worker3CountDaysForAssembly = Agregat1.getCountDaysForAssembly(Agregat1.AgregatCountDetails, worker3CountDetailPerDay);
-            Console.WriteLine($"Worker3 is {worker3.WorkerExperience}. He will assembly aggregate for  {worker3CountDaysForAssembly} days");
-            Console.ReadLine();
-         }
-    }
-    class Worker
-    {
-        public string WorkerExperience;
-        public Worker(string workerExperience)
-        {
-            this.WorkerExperience = workerExperience;
-        }
-        public int GetWorkerCountDetailsPerDay(string workerExperience)
-        {
-            int workerCountDetailsPerDay = 0;
-            switch (workerExperience)
+            int countJunWorker = 5;
+            int countMiddleWorker = 3;
+            int countSeniourWorker = 2;
+            int indexJunName = 1;
+            int indexMidName = 1;
+            int indexSenName = 1;
+            int sumCountWorkers = countJunWorker + countMiddleWorker + countSeniourWorker;
+            Worker[] workers = new Worker[sumCountWorkers];
+            //fill part of array with JunWorkers
+            for (int i = 0; i < countJunWorker; i++)
             {
-                case "experienced":
-                    workerCountDetailsPerDay = 3;
-                break;
-                case "inexperienced":
-                    workerCountDetailsPerDay = 1;
-                break;
-                case "master":
-                    workerCountDetailsPerDay = 5;
-                break;
-                default:
-                    workerCountDetailsPerDay = 0;
-                break;
+                workers[i] = new Worker("JunWorkerName_" + indexJunName, "inexperienced");
+                indexJunName++;
+            }
+            //fill part of array with MiddleWorker
+            for (int i = countJunWorker; i < countMiddleWorker + countJunWorker; i++)
+            {
+                workers[i] = new Worker("MiddleWorkerName_" + indexMidName, "experienced");
+                indexMidName++;
+            }
+            //fill part of array with SeniourWorkers
+            for (int i = countMiddleWorker + countJunWorker; i < sumCountWorkers; i++)
+            {
+                workers[i] = new Worker("SeniourWorkerName_" + indexSenName, "master");
+                indexSenName++;
+            }
+            Console.WriteLine("-----------------------------------------------------");
+            Console.WriteLine("Team consists of:");
+            for (int i = 0; i < sumCountWorkers; i++)
+            {
+                Console.WriteLine(i+1+".  "+workers[i].Name+"   "+ workers[i].Experience);
+            }
+            Console.WriteLine("-----------------------------------------------------");
+            Console.WriteLine("Assembly of agregat has been started");
+            Console.WriteLine("-----------------------------------------------------");
+            int tempCountDetails = 0;
+            while (tempCountDetails < Agregat1.AgregatCountDetails) 
+            {
+                for (int i = 0; i < sumCountWorkers; i++)
+                {
+                    tempCountDetails = workers[i].GetAgregatAssembly(tempCountDetails, Agregat1.AgregatCountDetails);
+                    if (tempCountDetails ==sumCountWorkers)
+                    {
+                       break;
+                    }
+                   
+                    Console.WriteLine("Current count of assembled details is "+tempCountDetails);
+                    
+                }
+            } 
+            Console.ReadLine();
         }
-            return workerCountDetailsPerDay;
-        }
-       
+
     }
+
 }
-    class Agregat
-{
-    public int AgregatCountDetails;
-    public Agregat(int agregatCountDetails)
-    {
-        this.AgregatCountDetails = agregatCountDetails;
-    }
-    public decimal getCountDaysForAssembly(int agregatCountDetails, int countDetailsPerDay)
-    {
-        decimal temp = agregatCountDetails/countDetailsPerDay;
-        decimal countDaysForAssembly = Math.Ceiling(temp);
-        return countDaysForAssembly;
-    }
- }
+
 
