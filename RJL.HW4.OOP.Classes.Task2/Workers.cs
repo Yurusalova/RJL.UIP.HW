@@ -17,42 +17,40 @@ namespace RJL.HW4.OOP.Classes.Task2
             this.Experience = experience;
         }
 
-        public int  GetAgregatAssembly(int tempCountDetails,int generalCountDetail)
+        public void  AgregatAssembly(Agregat agregat)
         {
-            int workerCountDetails;
-            int workerCurrentCountDetails = 0;
+            int workerCapacity;
+            int leftAssembleDetails = 0;
             switch (this.Experience)
             {
                 case "experienced":
-                    workerCountDetails = 3;
+                    workerCapacity = 3;
                     break;
                 case "inexperienced":
-                    workerCountDetails = 1;
+                    workerCapacity = 1;
                     break;
                 case "master":
-                    workerCountDetails = 5;
+                    workerCapacity = 5;
                     break;
                 default:
-                    workerCountDetails = 0;
+                    workerCapacity = 0;
                     break;
             }
-            
-                for (int i = 1; i <= workerCountDetails; i++)
-                {
-                    
-                    tempCountDetails ++;
-                    workerCurrentCountDetails = i;
-                    if (tempCountDetails == generalCountDetail) {
-                        Console.WriteLine($"Worker {this.Name} added {workerCurrentCountDetails} detail(s) to Agregat");
-                        Console.WriteLine("----------------------------------------------------------");
-                        Console.WriteLine("Agregat has been assembled");
-                        Console.WriteLine("----------------------------------------------------------");
-                        return tempCountDetails;
-                    }
-                }
-                Console.WriteLine($"Worker {this.Name} added {workerCurrentCountDetails} detail(s) to Agregat");
-            
-            return tempCountDetails;
+            leftAssembleDetails = agregat.GeneralCountDetails - agregat.CurrentAssembledDetails;
+            agregat.CurrentAssembledDetails = agregat.CurrentAssembledDetails + workerCapacity;
+            if (agregat.CurrentAssembledDetails >= agregat.GeneralCountDetails)
+            {
+                agregat.CurrentAssembledDetails = agregat.GeneralCountDetails;
+                Console.WriteLine($"Worker {this.Name} added {leftAssembleDetails} detail(s) to Agregat");
+                Console.WriteLine("----------------------------------------------------------");
+                Console.WriteLine("Agregat has been assembled");
+                Console.WriteLine("----------------------------------------------------------");
+            }
+            else
+            {
+                Console.WriteLine($"Worker {this.Name} added {workerCapacity} detail(s) to Agregat");
+            }
+           // return agregat.CurrentAssembledDetails;
         }
     }
 }

@@ -10,7 +10,7 @@ namespace RJL.HW4.OOP.Classes.Task2
     {
         static void Main(string[] args)
         {
-            Agregat Agregat1 = new Agregat(20,0);
+            Agregat Agregat1 = new Agregat(25,0);
             Console.WriteLine($"Agregat contains {Agregat1.GeneralCountDetails} details");
             Console.WriteLine("-----------------------------------------------------");
             Worker[] workers1 = GetWorkers(5, 4, 3);
@@ -19,7 +19,7 @@ namespace RJL.HW4.OOP.Classes.Task2
             Console.WriteLine("-----------------------------------------------------");
             Console.WriteLine("Assembly of agregat has been started");
             Console.WriteLine("-----------------------------------------------------");
-            GetAssemledAgregat(Agregat1, workers1);
+            AssemleAgregat(Agregat1, workers1);
             Console.ReadLine();
         }
         static Worker[] GetWorkers(int countJunWorker, int countMiddleWorker, int countSeniourWorker)
@@ -49,13 +49,13 @@ namespace RJL.HW4.OOP.Classes.Task2
             }
             return workers;
         }
-        static void GetAssemledAgregat(Agregat agregate, Worker[] workersTeam)
+        static void AssemleAgregat(Agregat agregate, Worker[] workersTeam)
         {
             while (agregate.CurrentAssembledDetails < agregate.GeneralCountDetails)
             {
                 for (int i = 0; i < workersTeam.Length; i++)
                 {
-                    agregate.CurrentAssembledDetails = workersTeam[i].GetAgregatAssembly(agregate.CurrentAssembledDetails, agregate.GeneralCountDetails);
+                    workersTeam[i].AgregatAssembly(agregate);
                     if (agregate.IsAgregateAssambled())
                     {
                         Console.WriteLine("General count of assembled details is " + agregate.CurrentAssembledDetails);

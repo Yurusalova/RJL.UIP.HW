@@ -40,8 +40,9 @@ namespace RJL.HW4.OOP.Classes.Task1
             Console.WriteLine("------------------------------------------------------------------");
             Format Format1 = new Format("mp3", 128);
             Format Format2 = new Format("mp3", 256);
-            Player Player1 = new Player("Google Chromecast", "20W", Format1);
-            Player Player2 = new Player("Xiaomi Mi", "15W", Format2);
+            Format Format3 = new Format("mp3", 320);
+            Player Player1 = new Player("Google Chromecast", "20W", new Format[3]{Format1,Format2, Format3});
+            Player Player2 = new Player("Xiaomi Mi", "15W", new Format[2] { Format1, Format2});
             string descriptionPlayer1 = Player1.GetDescription();
             string descriptionPlayer2 = Player2.GetDescription();
             Console.WriteLine("Player 1: " + descriptionPlayer1);
@@ -125,8 +126,8 @@ namespace RJL.HW4.OOP.Classes.Task1
     {
         public string Model { get; private set; }
         public string Power { get; private set; }
-        public Format Formats { get; private set; }
-        public Player(string model, string power, Format formats)
+        public Format[] Formats { get; private set; }
+        public Player(string model, string power, Format[] formats)
         {
             this.Model = model;
             this.Power = power;
@@ -134,7 +135,13 @@ namespace RJL.HW4.OOP.Classes.Task1
         }
         public string GetDescription()
         {
-            return $"model {this.Model}, power {this.Power}, playback formats {this.Formats.Name} {this.Formats.Bitrate} kbps";
+            string descriptionFormat="";
+            for (int i = 0; i < this.Formats.Length; i++)
+            {
+                descriptionFormat= descriptionFormat+this.Formats[i].Name + " "+this.Formats[i].Bitrate+",";
+
+            }
+            return $"model {this.Model}, power {this.Power}, playback formats: {descriptionFormat}";
         }
     }
     public class Format

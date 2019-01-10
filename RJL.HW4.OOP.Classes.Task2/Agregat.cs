@@ -18,7 +18,7 @@ namespace RJL.HW4.OOP.Classes.Task2
         }
         public bool IsAgregateAssambled()
         {
-            return this.CurrentAssembledDetails == this.GeneralCountDetails;
+            return this.CurrentAssembledDetails >= this.GeneralCountDetails;
         }
 
     }
