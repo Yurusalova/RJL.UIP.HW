@@ -10,7 +10,7 @@ namespace RJL.HW4.OOP.Classes.Task2
     {
         static void Main(string[] args)
         {
-            Agregat Agregat1 = new Agregat(25,0);
+            Agregat Agregat1 = new Agregat(25);
             Console.WriteLine($"Agregat contains {Agregat1.GeneralCountDetails} details");
             Console.WriteLine("-----------------------------------------------------");
             Worker[] workers1 = GetWorkers(5, 4, 3);
@@ -58,6 +58,9 @@ namespace RJL.HW4.OOP.Classes.Task2
                     workersTeam[i].AgregatAssembly(agregate);
                     if (agregate.IsAgregateAssambled())
                     {
+                        Console.WriteLine("----------------------------------------------------------");
+                        Console.WriteLine("Agregat has been assembled");
+                        Console.WriteLine("----------------------------------------------------------");
                         Console.WriteLine("General count of assembled details is " + agregate.CurrentAssembledDetails);
                         break;
                     }

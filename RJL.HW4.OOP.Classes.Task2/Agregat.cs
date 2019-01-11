@@ -9,12 +9,10 @@ namespace RJL.HW4.OOP.Classes.Task2
     class Agregat
     {
         public int GeneralCountDetails { get; private set;}
-        public int CurrentAssembledDetails { get; set;}
-        public Agregat(int agregatCountDetails, int currentAssembledDetails)
+        public int CurrentAssembledDetails { get; set; } = 0;
+        public Agregat(int agregatCountDetails)
         {
             this.GeneralCountDetails = agregatCountDetails;
-            this.CurrentAssembledDetails = currentAssembledDetails;
-
         }
         public bool IsAgregateAssambled()
         {
