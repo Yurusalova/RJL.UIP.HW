@@ -10,11 +10,13 @@ namespace RJL.HW5.OOP.Classes.Factory
     {
         public string Name { get; private set; }
         public string Experience { get; private set; }
+        public int Salary { get; private set; }
 
-        public Worker(string name, string experience)
+        public Worker(string name, string experience, int salary)
         {
             this.Name = name;
             this.Experience = experience;
+            this.Salary = salary;
         }
 
         public void AgregatAssembly(Agregat agregat)
@@ -23,8 +25,10 @@ namespace RJL.HW5.OOP.Classes.Factory
             int leftAssembleDetails = agregat.GeneralCountDetails - agregat.CurrentAssembledDetails;
             int countDetailsToAssemble = workerCapacity >= leftAssembleDetails ? leftAssembleDetails : workerCapacity;
             agregat.CurrentAssembledDetails += countDetailsToAssemble;
-            Console.WriteLine($"Worker {this.Name} added {countDetailsToAssemble} detail(s) to Agregat");
+            Logger.LogInfo($"Worker {this.Name} added {countDetailsToAssemble} detail(s) to Agregat");
+            Logger.CountLogInfo += 1; 
         }
+        
         public int GetWorkerCapacity()
         {
             int workerCapacity;

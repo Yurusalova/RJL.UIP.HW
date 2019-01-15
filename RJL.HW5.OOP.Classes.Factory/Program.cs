@@ -12,6 +12,13 @@ namespace RJL.HW5.OOP.Classes.Factory
         {
             Country Ukraine = new Country();
             Factory factory = new Factory(Ukraine, "Factory1");
+            Logger logger = new Logger();
+            Car car = new Car(5);
+            Plane plane = new Plane(6);
+            Tank tank = new Tank(4);
+            List < Order > orders = Country.GetOrders(car,plane,tank);
+            PrintOrders(orders);
+            
             Agregat Agregat1 = new Agregat(25);
             Console.WriteLine($"Agregat contains {Agregat1.GeneralCountDetails} details");
             Console.WriteLine("-----------------------------------------------------");
@@ -34,19 +41,19 @@ namespace RJL.HW5.OOP.Classes.Factory
             //fill part of array with JunWorkers
             for (int i = 0; i < countJunWorker; i++)
             {
-                workers[i] = new Worker("JunWorkerName_" + indexJunName, "inexperienced");
+                workers[i] = new Worker("JunWorkerName_" + indexJunName, "inexperienced",1000);
                 indexJunName++;
             }
             //fill part of array with MiddleWorker
             for (int i = countJunWorker; i < countMiddleWorker + countJunWorker; i++)
             {
-                workers[i] = new Worker("MiddleWorkerName_" + indexMidName, "experienced");
+                workers[i] = new Worker("MiddleWorkerName_" + indexMidName, "experienced",2000);
                 indexMidName++;
             }
             //fill part of array with SeniourWorkers
             for (int i = countMiddleWorker + countJunWorker; i < sumCountWorkers; i++)
             {
-                workers[i] = new Worker("SeniourWorkerName_" + indexSenName, "master");
+                workers[i] = new Worker("SeniourWorkerName_" + indexSenName, "master",3000);
                 indexSenName++;
             }
             return workers;
@@ -78,7 +85,12 @@ namespace RJL.HW5.OOP.Classes.Factory
                 Console.WriteLine(i + 1 + ".  " + workersTeam[i].Name + "   " + workersTeam[i].Experience);
             }
         }
-
+        static void PrintOrders(List<Order> orders) {
+            foreach (var order in orders)
+            {
+                order.PrintOrder();
+            }
+        }
     }
 }
 

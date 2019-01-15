@@ -8,9 +8,12 @@ namespace RJL.HW5.OOP.Classes.Factory
 {
     class Country
     {
-        public static List<Order> GetOrders()
+        public static int OrderCounter=0;
+        public static List<Order> GetOrders(Car car, Plane plane, Tank tank)
         {
-            return new List<Order>() { new Order() };
+            Order order = new Order(OrderCounter, 2, 2, 2);
+            order.FillOrder(car, plane, tank);
+            return new List<Order>() { order };
         }
     }
 }

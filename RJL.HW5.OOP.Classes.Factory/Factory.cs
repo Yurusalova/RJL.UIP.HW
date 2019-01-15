@@ -22,11 +22,11 @@ namespace RJL.HW5.OOP.Classes.Factory
             this.Country = country;
         }
 
-        private void ExecuteWorkingDay()
+        private void ExecuteWorkingDay(Car car, Plane plane, Tank tank)
         {
             if (this.Orders.Count == 0)
             {
-                this.Orders.AddRange(Country.GetOrders());
+                this.Orders.AddRange(Country.GetOrders(car,plane, tank));
             }
             foreach (var worker in this.Workers)
             {
@@ -34,19 +34,19 @@ namespace RJL.HW5.OOP.Classes.Factory
             }
         }
 
-        private void ExecuteWorkingMonth()
+        private void ExecuteWorkingMonth(Car car, Plane plane, Tank tank)
         {
             for (int i = 0; i < 30; i++)
             {
-                this.ExecuteWorkingDay();
+                this.ExecuteWorkingDay(car,plane,tank);
             }
         }
 
-        public void ExecuteWorkingYear()
+        public void ExecuteWorkingYear(Car car, Plane plane, Tank tank)
         {
             for (int i = 0; i < 12; i++)
             {
-                this.ExecuteWorkingMonth();
+                this.ExecuteWorkingMonth(car, plane, tank);
             }
         }
 
