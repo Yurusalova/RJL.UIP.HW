@@ -22,7 +22,16 @@ namespace RJL.HW4.OOP.Classes.Task3
                 }
             }
         }
-
+        internal void AddPhoneToStore(Phone phone, int storeNum) {
+            foreach (var storage in Storages)
+            {
+                if (storage.Number == storeNum)
+                {
+                    storage.AddPhonetoStorage(phone);
+                    break;
+                }
+             }
+         }
         public Shop(string name)
         {
             this.Name = name;
