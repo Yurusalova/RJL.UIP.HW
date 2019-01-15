@@ -13,6 +13,7 @@ namespace RJL.HW1.VariablesTypesTask1
             //task#1
             int sideA = 10;
             int sideB = 20;
+
             double square = sideA * sideB;
             double perimeter = 2 * (sideA + sideB);
 
