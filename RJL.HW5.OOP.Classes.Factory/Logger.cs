@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 
 namespace RJL.HW5.OOP.Classes.Factory
 {
-     class Logger
+  static   class Logger
     {
-        public static  int CountLogInfo { get; set; }
-        public static int CountLogWarning { get; set; }
+        public static int CountLog { get; set; } = 1;
+        public static int CountDay { get; set; } = 1;
+        public static int CountMonth { get; set; } = 1;
         public static void LogInfo(string message ) {
-            Console.WriteLine($"{CountLogInfo}. Info: {DateTime.Today} {message}");
+            Console.WriteLine($"{CountLog}. Info: day {CountDay}, month {CountMonth}. {message}");
         }
         public static void LogWarning(string message)
         {
-            Console.WriteLine($"{CountLogWarning}. Warning: {DateTime.Today} {message}");
+            Console.WriteLine($"{CountLog}. Warning: day {CountDay}, month {CountMonth}. {message}");
         }
     }
 }

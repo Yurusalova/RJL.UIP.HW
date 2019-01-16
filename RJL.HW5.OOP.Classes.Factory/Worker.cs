@@ -11,6 +11,7 @@ namespace RJL.HW5.OOP.Classes.Factory
         public string Name { get; private set; }
         public string Experience { get; private set; }
         public int Salary { get; private set; }
+        public bool isWorkDayEnded { get; set; }
 
         public Worker(string name, string experience, int salary)
         {
@@ -19,16 +20,45 @@ namespace RJL.HW5.OOP.Classes.Factory
             this.Salary = salary;
         }
 
-        public void AgregatAssembly(Agregat agregat)
+        public void CarAssembly(Car car, int carNumber)
         {
-            int workerCapacity = GetWorkerCapacity();
-            int leftAssembleDetails = agregat.GeneralCountDetails - agregat.CurrentAssembledDetails;
-            int countDetailsToAssemble = workerCapacity >= leftAssembleDetails ? leftAssembleDetails : workerCapacity;
-            agregat.CurrentAssembledDetails += countDetailsToAssemble;
-            Logger.LogInfo($"Worker {this.Name} added {countDetailsToAssemble} detail(s) to Agregat");
-            Logger.CountLogInfo += 1; 
+            if (this.isWorkDayEnded) { return; }
+            else
+            {
+                int workerCapacity = GetWorkerCapacity();
+                int leftAssembleDetails = car.GeneralCountDetails - car.CurrentAddedDetails;
+                int countDetailsToAssemble = workerCapacity >= leftAssembleDetails ? leftAssembleDetails : workerCapacity;
+                car.CurrentAddedDetails += countDetailsToAssemble;
+                Logger.LogInfo($"Worker {this.Name} added {countDetailsToAssemble} detail(s) to Car {carNumber}");
+                Logger.CountLog += 1;
+            }
         }
-        
+        public void PlaneAssembly(Plane plane, int planeNumber)
+        {
+            if (this.isWorkDayEnded) { return; }
+            else
+            {
+                int workerCapacity = GetWorkerCapacity();
+                int leftAssembleDetails = plane.GeneralCountDetails - plane.CurrentAddedDetails;
+                int countDetailsToAssemble = workerCapacity >= leftAssembleDetails ? leftAssembleDetails : workerCapacity;
+                plane.CurrentAddedDetails += countDetailsToAssemble;
+                Logger.LogInfo($"Worker {this.Name} added {countDetailsToAssemble} detail(s) to Plane {planeNumber}");
+                Logger.CountLog += 1;
+            }
+        }
+        public void TankAssembly(Tank tank, int tankNumber)
+        {
+            if (this.isWorkDayEnded) { return; }
+            else
+            {
+                int workerCapacity = GetWorkerCapacity();
+                int leftAssembleDetails = tank.GeneralCountDetails - tank.CurrentAddedDetails;
+                int countDetailsToAssemble = workerCapacity >= leftAssembleDetails ? leftAssembleDetails : workerCapacity;
+                tank.CurrentAddedDetails += countDetailsToAssemble;
+                Logger.LogInfo($"Worker {this.Name} added {countDetailsToAssemble} detail(s) to Tank {tankNumber}");
+                Logger.CountLog += 1;
+            }
+        }
         public int GetWorkerCapacity()
         {
             int workerCapacity;

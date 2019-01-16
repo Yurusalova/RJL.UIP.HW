@@ -43,7 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Agregat.cs" />
     <Compile Include="Car.cs" />
     <Compile Include="Country.cs" />
     <Compile Include="Factory.cs" />

@@ -22,21 +22,21 @@ namespace RJL.HW5.OOP.Classes.Factory
             {
                 foreach (var car in this.Cars)
                 {
-                    if (car.isReady)
+                    if (car.isReady==false)
                     {
                         return false;
                     }
                 }
                 foreach (var plane in this.Planes)
                 {
-                    if (plane.isReady)
+                    if (plane.isReady==false)
                     {
                         return false;
                     }
                 }
                 foreach (var tank in this.Tanks)
                 {
-                    if (tank.isReady)
+                    if (tank.isReady==false)
                     {
                         return false;
                     }
@@ -52,30 +52,64 @@ namespace RJL.HW5.OOP.Classes.Factory
             this.CountOfPlane = countofPlane;
             this.CountOfTank = countOfTank;
         }
-        public void FillOrder(Car car, Plane plane, Tank tank)
+        public void FillOrder()
         {
             for (int i = 0; i < this.CountOfCar; i++)
             {
-                this.Cars.Add(car);
+                this.Cars.Add(new Car(10));
              }
             for (int i = 0; i < this.CountOfPlane; i++)
             {
-                this.Planes.Add(plane);
+                this.Planes.Add(new Plane(15));
             }
             for (int i = 0; i < this.CountOfTank; i++)
             {
-                this.Tanks.Add(tank);
+                this.Tanks.Add(new Tank(20));
             }
         }
         public void PrintOrder()
         {
+            Console.WriteLine("-----------------------------------------------------------------------");
             Console.WriteLine($"Order number {this.Number} contains:");
             Console.WriteLine($"{this.Cars.Count} cars,{this.Planes.Count} planes, {this.Tanks.Count} tanks");
-            Console.WriteLine($"Car contains {this.Cars[0].GeneralCountDetails} details. ");
-            Console.WriteLine($"Plane contains {this.Planes[0].GeneralCountDetails} details. ");
-            Console.WriteLine($"Tank contains {this.Tanks[0].GeneralCountDetails} details. ");
+            Console.WriteLine($"Each car contains {this.Cars[0].GeneralCountDetails} details. ");
+            Console.WriteLine($"Each plane contains {this.Planes[0].GeneralCountDetails} details. ");
+            Console.WriteLine($"Each tank contains {this.Tanks[0].GeneralCountDetails} details. ");
+         
+        }
+        public bool isCarsInOrderAssembled() {
+            foreach(var car in this.Cars)
+                {
+                if (car.isReady == false)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        public bool isPlanesInOrderAssembled()
+        {
+            foreach (var plane in this.Planes)
+            {
+                if (plane.isReady == false)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        public bool isTanksInOrderAssembled()
+        {
+            foreach (var tank in this.Tanks)
+            {
+                if (tank.isReady == false)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
-        
+
     }
 }
