@@ -19,8 +19,7 @@ namespace RJL.HW5.OOP.Classes.Factory
             this.Experience = experience;
             this.Salary = salary;
         }
-
-        public void CarAssembly(Car car, int carNumber)
+       public void CarAssembly(Car car, int carNumber)
         {
             if (this.isWorkDayEnded) { return; }
             else
@@ -30,7 +29,6 @@ namespace RJL.HW5.OOP.Classes.Factory
                 int countDetailsToAssemble = workerCapacity >= leftAssembleDetails ? leftAssembleDetails : workerCapacity;
                 car.CurrentAddedDetails += countDetailsToAssemble;
                 Logger.LogInfo($"Worker {this.Name} added {countDetailsToAssemble} detail(s) to Car {carNumber}");
-                Logger.CountLog += 1;
             }
         }
         public void PlaneAssembly(Plane plane, int planeNumber)
@@ -43,7 +41,6 @@ namespace RJL.HW5.OOP.Classes.Factory
                 int countDetailsToAssemble = workerCapacity >= leftAssembleDetails ? leftAssembleDetails : workerCapacity;
                 plane.CurrentAddedDetails += countDetailsToAssemble;
                 Logger.LogInfo($"Worker {this.Name} added {countDetailsToAssemble} detail(s) to Plane {planeNumber}");
-                Logger.CountLog += 1;
             }
         }
         public void TankAssembly(Tank tank, int tankNumber)
@@ -56,7 +53,6 @@ namespace RJL.HW5.OOP.Classes.Factory
                 int countDetailsToAssemble = workerCapacity >= leftAssembleDetails ? leftAssembleDetails : workerCapacity;
                 tank.CurrentAddedDetails += countDetailsToAssemble;
                 Logger.LogInfo($"Worker {this.Name} added {countDetailsToAssemble} detail(s) to Tank {tankNumber}");
-                Logger.CountLog += 1;
             }
         }
         public int GetWorkerCapacity()
@@ -65,7 +61,7 @@ namespace RJL.HW5.OOP.Classes.Factory
             switch (this.Experience)
             {
                 case "experienced":
-                    workerCapacity = 3;
+                    workerCapacity = 4;
                     break;
                 case "inexperienced":
                     workerCapacity = 1;
