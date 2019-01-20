@@ -13,7 +13,13 @@ namespace RJL.HW4.OOP.Classes.Task3
             string[] menuiItems = new string[] { "quit", "add store to shop", "add phone to store", "show all phones in stores", "clear console" };
             Shop mobileShop = new Shop(GetInputNameShop());
             Console.WriteLine("=> Great, the name of shop is '" + mobileShop.Name + "'");
-            WorkWithOptionMenu(menuiItems, mobileShop);
+            int indexCommand;
+            do
+            {
+                indexCommand = GetCommandFromOptionMenu(menuiItems);
+                ChooseOptionMenu(indexCommand, mobileShop);
+            } while (indexCommand != 0);
+            
             Console.ReadLine();
         }
         static string GetInputNameShop()
@@ -24,11 +30,11 @@ namespace RJL.HW4.OOP.Classes.Task3
                 Console.WriteLine("Please write valid (not empty) name for shop");
                 inputName = Console.ReadLine();
             }
-            while (inputName == "" || inputName == " " || inputName == null);
+            while (string.IsNullOrWhiteSpace(inputName));
 
             return inputName;
         }
-        static void OptionMenuOutput(string[] menuItems)
+        static int GetCommandFromOptionMenu(string[] menuItems)
         {
             Console.WriteLine("---------------------------NEW COMMAND----------------------------");
             Console.WriteLine("Please write the index of command from the list below. Commands:");
@@ -36,12 +42,13 @@ namespace RJL.HW4.OOP.Classes.Task3
             {
                 Console.WriteLine($"[{i}] = {menuItems[i]}");
             }
-        }
-        static void ChooseOptionMenu(string[] menuItems, Shop shop)
-        {
             string inputResult = Console.ReadLine();
             int inputIntResult;
             bool isSuccessInput = int.TryParse(inputResult, out inputIntResult);
+            return inputIntResult;
+        }
+        static void ChooseOptionMenu(int inputIntResult,  Shop shop)
+        {
             switch (inputIntResult)
             {
                 case 0:
@@ -49,29 +56,24 @@ namespace RJL.HW4.OOP.Classes.Task3
                     break;
                 case 1:
                     AddStoreToShop(shop);
-                    WorkWithOptionMenu(menuItems, shop);
                     break;
                 case 2:
                     SelectStoreForAddPhones(shop);
-                    WorkWithOptionMenu(menuItems, shop);
                     break;
                 case 3:
                     AllStoresOutput(shop, true);
-                    WorkWithOptionMenu(menuItems, shop);
                     break;
                 case 4:
                     Console.Clear();
-                    WorkWithOptionMenu(menuItems, shop);
                     break;
             }
         }
-        static void PhoneInStoresOutput(Storage storage)
+        static void PhonesInStoreOutput(Storage storage)
         {
-            string textForOutput;
             for (int i = 0; i < storage.Phones.Length; i++)
             {
-                textForOutput = storage.Phones[i] != null ? $"    [{i}] - Phone cell is model name '{storage.Phones[i].Name}' " +
-                    $"and price '{storage.Phones[i].Price}'" : $"    [{i}] - Phone cell is empty";
+                string textForOutput = storage.Phones[i] != null ? $"    [{i}] - Phone model name '{storage.Phones[i].Name}' " +
+                     $"and price '{storage.Phones[i].Price}'" : $"    [{i}] - Phone cell is empty";
                 Console.WriteLine(textForOutput);
             }
         }
@@ -92,20 +94,20 @@ namespace RJL.HW4.OOP.Classes.Task3
                 }
                 else { break; }
                 Console.WriteLine(textForOutput);
-                if (mobileshop.Storages[i] != null && isNeededPhoneOutput) { PhoneInStoresOutput(mobileshop.Storages[i]); }
+                if (mobileshop.Storages[i] != null && isNeededPhoneOutput) { PhonesInStoreOutput(mobileshop.Storages[i]); }
             }
         }
- 
-        static void AddStoreToShop(Shop shop) {
-            string inputNumberStore, inputAddressStore,inputPhoneCapacity;
+        static void AddStoreToShop(Shop shop)
+        {
+            string inputNumberStore, inputAddressStore, inputPhoneCapacity;
             int inputIntNumberStore, inputIntPhoneCapacity;
             bool isSuccessInput;
             do
             {
                 Console.WriteLine("Please write the number of store (number >0 and number<=500) in shop '" + shop.Name + "'");
                 inputNumberStore = Console.ReadLine();
-               isSuccessInput = int.TryParse(inputNumberStore, out inputIntNumberStore);
-            } while (isSuccessInput == false||(inputIntNumberStore>500||inputIntNumberStore<1));
+                isSuccessInput = int.TryParse(inputNumberStore, out inputIntNumberStore);
+            } while (!isSuccessInput || inputIntNumberStore > 500 || inputIntNumberStore < 1);
             do
             {
                 Console.WriteLine("Please write shop address (text with length>10) of store");
@@ -116,54 +118,52 @@ namespace RJL.HW4.OOP.Classes.Task3
                 Console.WriteLine("Please write capacity (number >0 and number<=10) of phones which could be in store'" + shop.Name + "'");
                 inputPhoneCapacity = Console.ReadLine();
                 isSuccessInput = int.TryParse(inputPhoneCapacity, out inputIntPhoneCapacity);
-            } while (isSuccessInput == false || (inputIntPhoneCapacity > 10||inputIntPhoneCapacity<1));
+            } while (!isSuccessInput || inputIntPhoneCapacity > 10 || inputIntPhoneCapacity < 1);
 
             Storage storage = new Storage(inputIntNumberStore, inputAddressStore, inputIntPhoneCapacity);
             shop.AddStorage(storage);
             Console.WriteLine($"=> Store with number {inputIntNumberStore}, address '{inputAddressStore}' and capacity '{inputIntPhoneCapacity}' successfully created");
         }
-        static void AddPhoneToStore(Shop shop, int storeNumber) {
+        static void AddPhoneToStore(Shop shop, int storeNumber)
+        {
             string inputNamePhone, inputPricePhone;
             int inputIntPricePhone;
             bool isSuccessInput;
-                    do
-                     {
-                     Console.WriteLine("Please write phone model name (text with length>10)");
-                    inputNamePhone = Console.ReadLine();
-                     } while (inputNamePhone.Length < 10);
-                     do
-                     {
-                    Console.WriteLine("Please write price (number>0 and number<=100000) of phones which could be in store");
-                    inputPricePhone = Console.ReadLine();
-                    isSuccessInput = int.TryParse(inputPricePhone, out inputIntPricePhone);
-                    } while (isSuccessInput == false || inputIntPricePhone <= 0 || inputIntPricePhone > 100000);
-
-                    Phone phone = new Phone(inputNamePhone, inputIntPricePhone);
-                    shop.AddPhoneToStore(phone, shop.Storages[storeNumber].Number);
-            
-                    Console.WriteLine($"=> Phone with model name '{inputNamePhone}' and price '{inputIntPricePhone}'" +
-                              $" was successfully added to store number '{shop.Storages[storeNumber].Number}' " +
-                             $"with address '{shop.Storages[storeNumber].Address}' and capacity '{shop.Storages[storeNumber].Phones.Length}'");
-                
-         }
+            do
+            {
+                Console.WriteLine("Please write phone model name (text with length>10)");
+                inputNamePhone = Console.ReadLine();
+            } while (inputNamePhone.Length < 10);
+            do
+            {
+                Console.WriteLine("Please write price (number>0 and number<=100000) of phones which could be in store");
+                inputPricePhone = Console.ReadLine();
+                isSuccessInput = int.TryParse(inputPricePhone, out inputIntPricePhone);
+            } while (!isSuccessInput || inputIntPricePhone <= 0 || inputIntPricePhone > 100000);
+            Phone phone = new Phone(inputNamePhone, inputIntPricePhone);
+            shop.AddPhoneToStore(phone, shop.Storages[storeNumber].Number);
+            Console.WriteLine($"=> Phone with model name '{inputNamePhone}' and price '{inputIntPricePhone}'" +
+                      $" was successfully added to store number '{shop.Storages[storeNumber].Number}' " +
+                     $"with address '{shop.Storages[storeNumber].Address}' and capacity '{shop.Storages[storeNumber].Phones.Length}'");
+        }
         static void SelectStoreForAddPhones(Shop mobileshop)
         {
-            int inputIntIndexStore;
-            string inputStringIndexStore;
-            bool isSuccessAllInput;
             Storage[] storages = mobileshop.Storages;
             if (isShopHasStorage(mobileshop))
             {
+                int inputIntIndexStore;
+                string inputStringIndexStore;
+                bool isSuccessAllInput;
                 do
                 {
                     Console.WriteLine("Please write index number of MobilephoneStore from list below. MobilePhoneStores:");
                     AllStoresOutput(mobileshop, false);
                     inputStringIndexStore = Console.ReadLine();
                     bool isSuccessIntInput = int.TryParse(inputStringIndexStore, out inputIntIndexStore);
-                    isSuccessAllInput = isSuccessIntInput && inputIntIndexStore>=0&&inputIntIndexStore<= GetMaxIndexOfStorages(mobileshop);
-                    if (isSuccessAllInput == false) { Console.WriteLine("=> Invalid number"); }
-                } while (isSuccessAllInput == false);
-                if (isStorageHasFreePhoneCell(mobileshop.Storages[inputIntIndexStore])==false)
+                    isSuccessAllInput = isSuccessIntInput && inputIntIndexStore >= 0 && inputIntIndexStore <= GetMaxIndexOfStorages(mobileshop);
+                    if (!isSuccessAllInput) { Console.WriteLine("=> Invalid number"); }
+                } while (!isSuccessAllInput);
+                if (!isStorageHasFreePhoneCell(mobileshop.Storages[inputIntIndexStore]))
                 {
                     Console.WriteLine($"There are no free cell phone in storage {mobileshop.Storages[inputIntIndexStore].Number}");
                 }
@@ -180,37 +180,42 @@ namespace RJL.HW4.OOP.Classes.Task3
         static bool isShopHasStorage(Shop shop)
         {
             foreach (var store in shop.Storages)
-            {if (store != null) {
+            {
+                if (store != null)
+                {
                     return true;
-                } 
+                }
             }
             return false;
         }
-        static int GetMaxIndexOfStorages(Shop shop) {
+        static int GetMaxIndexOfStorages(Shop shop)
+        {
             int maxIndexStorage = 0; ;
             for (int i = 0; i < shop.Storages.Length; i++)
-            {if (shop.Storages[i] != null)
+            {
+                if (shop.Storages[i] != null)
                 {
                     maxIndexStorage = i;
                 }
-                else { break; }
+                else
+                {
+                    break;
+                }
 
             }
             return maxIndexStorage;
         }
-        static bool isStorageHasFreePhoneCell(Storage storage) {
+        static bool isStorageHasFreePhoneCell(Storage storage)
+        {
             foreach (var phone in storage.Phones)
-            {if (phone == null) {
+            {
+                if (phone == null)
+                {
                     return true;
                 }
 
             }
             return false;
-        }
-
-        static void WorkWithOptionMenu(string[] menuItems, Shop shop) {
-            OptionMenuOutput(menuItems);
-            ChooseOptionMenu(menuItems, shop);
         }
     }
 }
