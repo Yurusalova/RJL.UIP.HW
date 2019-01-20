@@ -148,7 +148,7 @@ namespace RJL.HW5.OOP.Classes.Factory
     {
         for (int i = 0; i < 30; i++)
         {
-            Date.CountDay = i + 1;
+            Date2.CountDay = i + 1;
             Logger.LogWithoutDate("-----------------------------------------------------");
             Logger.LogInfo($"New working day has been started");
             Logger.LogWithoutDate("-----------------------------------------------------");
@@ -163,7 +163,7 @@ namespace RJL.HW5.OOP.Classes.Factory
         Logger.LogWithoutDate("-----------------------------------------------------");
         for (int i = 0; i < 12; i++)
         {
-            Date.CountMonth = i + 1;
+            Date2.CountMonth = i + 1;
             Logger.LogWithoutDate("-----------------------------------------------------");
             Logger.LogInfo($"New working month  has been started");
             Logger.LogWithoutDate("-----------------------------------------------------");

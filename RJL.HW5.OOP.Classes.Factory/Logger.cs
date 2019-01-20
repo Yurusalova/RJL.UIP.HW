@@ -10,12 +10,12 @@ namespace RJL.HW5.OOP.Classes.Factory
     {
        public static int CountLog { get; private set; } = 1;
        public static void LogInfo(string message ) {
-            Console.WriteLine($"{CountLog}. Info: day {Date.CountDay}, month {Date.CountMonth}. {message}");
+            Console.WriteLine($"{CountLog}. Info: day {Date2.CountDay}, month {Date2.CountMonth}. {message}");
             CountLog++;
         }
         public static void LogWarning(string message)
         {
-            Console.WriteLine($"{CountLog}. Warning: day {Date.CountDay}, month {Date.CountMonth}. {message}");
+            Console.WriteLine($"{CountLog}. Warning: day {Date2.CountDay}, month {Date2.CountMonth}. {message}");
             CountLog++;
         }
         public static void LogWithoutDate(string message) {

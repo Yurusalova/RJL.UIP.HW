@@ -8,7 +8,7 @@ namespace RJL.HW5.OOP.Classes.Factory
 {
     class Country
     {
-        public int OrderCounter { get; private set;} = 0;
+        public int OrderCounter { get; private set;}
 
         public  List<Order> GetOrders()
         {
@@ -23,7 +23,6 @@ namespace RJL.HW5.OOP.Classes.Factory
             }
             return orders;
         }
-
         public void FillOrder(Order order)
         {
             for (int i = 0; i < order.CountOfCar; i++)
