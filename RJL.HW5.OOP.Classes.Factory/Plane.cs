@@ -6,34 +6,11 @@ using System.Threading.Tasks;
 
 namespace RJL.HW5.OOP.Classes.Factory
 {
-    class Plane
+    class Plane : Unit
     {
-        public string Name { get; private set; } = "plane";
-        public int GeneralCountDetails { get; private set; }
-        public int CurrentAddedDetails
+        public int CountEngines {get;}
+        public Plane(int generalCountDetails,string name):base(generalCountDetails, name)
         {
-            get {
-                return _currentAddedDetails;
-            }
-            set
-            {
-                if (value >= 0 && value <= this.GeneralCountDetails)
-                {
-                    _currentAddedDetails = value;
-                }
-            }
-        }
-        private int _currentAddedDetails;
-        public bool IsReady
-        {
-            get
-            {
-                return this.CurrentAddedDetails >= this.GeneralCountDetails;
-            }
-        }
-        public Plane(int generalCountDetails)
-        {
-            this.GeneralCountDetails = generalCountDetails;
         }
     }
 }

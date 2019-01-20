@@ -8,142 +8,60 @@ namespace RJL.HW5.OOP.Classes.Factory
 {
     class Factory
     {
-
         public readonly List<Order> Orders = new List<Order>();
-
+        public Order CurrentFreeOrder { get; private set; }
         public readonly List<Worker> Workers = new List<Worker>();
+        public WorkerManager Manager { get; private set; }
 
         public string Name { get; private set; }
         public Country Country { get; private set; }
 
-        public Factory(Country country, string name, List<Worker> workers)
+        public Factory(Country country, string name, List<Worker> workers, WorkerManager manager)
         {
             this.Name = name;
             this.Country = country;
             this.Workers = workers;
+            this.Manager = manager;
         }
         private void ExecuteWorkingDay()
         {
-            if (this.Orders.Count == 0)
-            {
-                Logger.LogWarning("There is no free orders. Generate the new ones");
-                Logger.LogWithoutDate("----------------------------------------------------------");
-                this.Orders.AddRange(Country.GetOrders());
-                PrintOrders();
-                Logger.LogWithoutDate("----------------------------------------------------------");
-            }
-            if (isAllOrdersCompleted())
-            {
-                this.Orders.Clear();
-            }
             foreach (var worker in this.Workers)
             {
-                foreach (var order in this.Orders)
+                if (CurrentFreeOrder == null)
                 {
-                    if (!order.isOrderCompleted)
+                    Logger.LogWarning("There is no free orders. Generate the new ones");
+                    this.Orders.Clear();
+                    Logger.LogWithoutDate("----------------------------------------------------------");
+                    this.Orders.AddRange(Country.GetOrders());
+                    PrintOrders();
+                    CurrentFreeOrder = Orders[0];
+                    Logger.LogWithoutDate("----------------------------------------------------------");
+                }
+                if (isWorkingDayEnded())
+                {
+                    break;
+                }
+                Unit currentFreeUnit = Manager.GetFreeUnitfromOrder(this.CurrentFreeOrder);
+                if (currentFreeUnit != null)
+                {
+                    worker.UnitAssembly(currentFreeUnit);
+                }
+                if (CurrentFreeOrder != Manager.GetFreeOrder(Orders))
+                {
+                    Logger.LogWithoutDate("----------------------------------------------");
+                    Logger.LogInfo($"Order number {CurrentFreeOrder.Number} is completed");
+                    Logger.LogWithoutDate("----------------------------------------------");
+
+                    CurrentFreeOrder = Manager.GetFreeOrder(Orders);
+                    if (CurrentFreeOrder != null)
                     {
-                        if (isWorkingDayEnded())
-                        {
-                            break;
-                        }
-                        //Logger.LogInfo("Start/continue working on order number " + order.Number);
-                        //Logger.CountLog += 1;
-                        if (!order.isCarsInOrderAssembled())
-                        {
-                            CarsInOrderAssembly(order, worker);
-                        }
-                        if (order.isOrderCompleted)
-                        {
-                            Logger.LogInfo($"Order number {order.Number} is completed");
-                        }
-                        if (worker.isWorkDayEnded)
-                        {
-                            break;
-                        }
-                        if (!order.isPlanesInOrderAssembled())
-                        {
-                            PlanesInOrderAssembly(order, worker);
-                        }
-                        if (order.isOrderCompleted)
-                        {
-                            Logger.LogInfo($"Order number {order.Number} is completed");
-                        }
-                        if (worker.isWorkDayEnded)
-                        {
-                            break;
-                        }
-                        if (!order.isTanksInOrderAssembled())
-                        {
-                            TanksInOrderAssembly(order, worker);
-                        }
-                        if (order.isOrderCompleted)
-                        {
-                            Logger.LogInfo($"Order number {order.Number} is completed");
-                        }
+                        Logger.LogWithoutDate("----------------------------------------------");
+                        Logger.LogInfo($"Start working on order number {CurrentFreeOrder.Number}");
+                        Logger.LogWithoutDate("----------------------------------------------");
                     }
                 }
             }
         }
-        private void CarsInOrderAssembly(Order order, Worker worker)
-        {
-            int carCounter = 1;
-            foreach (var car in order.Cars)
-            {
-                if (!car.IsReady)
-                {
-                    worker.CarAssembly(car, carCounter);
-                    worker.isWorkDayEnded = true;
-                    if (car.IsReady)
-                    {
-                        Logger.LogWithoutDate("----------------------------------------------------------");
-                        Logger.LogInfo($"Car {carCounter} in order {order.Number} has been assembled");
-                        Logger.LogInfo($"General count of assembled details in car {carCounter} is {car.CurrentAddedDetails}");
-                        Logger.LogWithoutDate("----------------------------------------------------------");
-                    }
-                }
-                carCounter++;
-            }
-    }
-    private void PlanesInOrderAssembly(Order order, Worker worker)
-    {
-        int planeCounter = 1;
-        foreach (var plane in order.Planes)
-        {
-            if (!plane.IsReady)
-            {
-                worker.PlaneAssembly(plane, planeCounter);
-                worker.isWorkDayEnded = true;
-               if (plane.IsReady)
-                {
-                    Logger.LogWithoutDate("----------------------------------------------------------");
-                    Logger.LogInfo($"Plane {planeCounter} in order {order.Number} has been assembled");
-                    Logger.LogInfo($"General count of assembled details in plane {planeCounter} is {plane.CurrentAddedDetails}");
-                    Logger.LogWithoutDate("----------------------------------------------------------");
-                }
-            }
-            planeCounter++;
-        }
-    }
-    private void TanksInOrderAssembly(Order order, Worker worker)
-    {
-        int tankCounter = 1;
-        foreach (var tank in order.Tanks)
-        {
-            if (!tank.IsReady)
-            {
-                worker.TankAssembly(tank, tankCounter);
-                worker.isWorkDayEnded = true;
-                if (tank.IsReady)
-                {
-                    Logger.LogWithoutDate("----------------------------------------------------------");
-                    Logger.LogInfo($"Tank {tankCounter} in order {order.Number} has been assembled");
-                    Logger.LogInfo($"General count of assembled details in tank {tankCounter} is {tank.CurrentAddedDetails}");
-                    Logger.LogWithoutDate("----------------------------------------------------------");
-                }
-            }
-            tankCounter++;
-        }
-    }
     private void ExecuteWorkingMonth()
     {
         for (int i = 0; i < 30; i++)
@@ -207,6 +125,18 @@ namespace RJL.HW5.OOP.Classes.Factory
             {
                 order.PrintOrder();
             }
+        }
+        public void PrintWorkersTeam()
+        {
+            Console.WriteLine("-----------------------------------------------------");
+            Console.WriteLine($"Factory '{Name}' has next workers:");
+            Console.WriteLine($"--Manager  {Manager.Name} with salary {Manager.Salary}");
+            Console.WriteLine("--Worker's team consists of:");
+            for (int i = 0; i < Workers.Count; i++)
+            {
+                Console.WriteLine($"  {i + 1}.{Workers[i].Name} {Workers[i].Experience} with salary {Workers[i].Salary}");
+            }
+            Console.WriteLine("-----------------------------------------------------");
         }
     }
 }

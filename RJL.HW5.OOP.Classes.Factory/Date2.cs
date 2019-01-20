@@ -10,7 +10,5 @@ namespace RJL.HW5.OOP.Classes.Factory
     {
         public static int CountDay { get; set; } = 1;
         public static int CountMonth { get; set; } = 1;
-        kjijij
-
-      }
+    }
 }
