@@ -23,6 +23,7 @@ namespace RJL.HW5.OOP.Classes.Factory
             this.Workers = workers;
             this.Manager = manager;
         }
+
         private void ExecuteWorkingDay()
         {
             foreach (var worker in this.Workers)

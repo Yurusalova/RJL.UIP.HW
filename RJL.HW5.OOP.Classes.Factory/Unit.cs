@@ -32,6 +32,7 @@ namespace RJL.HW5.OOP.Classes.Factory
                 return this.CurrentAddedDetails >= this.GeneralCountDetails;
             }
         }
+
         public Unit(int generalCountDetails,string name)
         {
             this.GeneralCountDetails = generalCountDetails;

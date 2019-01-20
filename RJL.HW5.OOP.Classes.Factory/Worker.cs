@@ -19,6 +19,7 @@ namespace RJL.HW5.OOP.Classes.Factory
             this.Experience = experience;
             this.Salary = salary;
         }
+
        public void UnitAssembly(Unit unit)
         {
             if (this.isWorkDayEnded) { return; }
@@ -31,8 +32,7 @@ namespace RJL.HW5.OOP.Classes.Factory
                 Logger.LogInfo($"Worker {this.Name} added {countDetailsToAssemble} detail(s) to {unit.Name}");
             }
         }
-       
-        public int GetWorkerCapacity()
+         public int GetWorkerCapacity()
         {
             int workerCapacity;
             switch (this.Experience)
