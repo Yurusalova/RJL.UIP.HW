@@ -10,11 +10,13 @@ namespace RJL.HW4.OOP.Classes.Task3
     {
         public string Address { get; private set; }
         public int Number { get; private set; }
-        public Phone[] Phones { get; } = new Phone[10];
-        public Storage(int number, string address)
+       
+        public Phone[] Phones { get; }
+        public Storage(int number, string address, int phoneCapacity)
         {
             this.Number = number;
             this.Address = address;
+            this.Phones = new Phone[phoneCapacity];
         }
 
         public void AddPhonetoStorage(Phone phone)
