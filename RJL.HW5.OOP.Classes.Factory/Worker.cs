@@ -9,9 +9,32 @@ namespace RJL.HW5.OOP.Classes.Factory
     class Worker
     {
         public string Name { get; private set; }
-        public string Experience { get; private set; }
+
+        private string _Experience;
+        public string Experience {
+            get { return _Experience; }
+            set {
+                _Experience = value;
+                switch (Experience) {
+                    case "experienced":
+                        WorkerCapacity = 4;
+                        break;
+                    case "inexperienced":
+                        WorkerCapacity = 1;
+                        break;
+                    case "master":
+                        WorkerCapacity = 5;
+                        break;
+                    default:
+                        WorkerCapacity = 0;
+                        break;
+                }
+            }
+        }
+
         public int Salary { get; private set; }
-        public bool isWorkDayEnded { get; set; }
+
+        public int WorkerCapacity { get; private set; }
 
         public Worker(string name, string experience, int salary)
         {
@@ -20,37 +43,18 @@ namespace RJL.HW5.OOP.Classes.Factory
             this.Salary = salary;
         }
 
-       public void UnitAssembly(Unit unit)
+        public void UnitAssembly(Unit unit)
         {
-            if (this.isWorkDayEnded) { return; }
-            else
-            {
-                int workerCapacity = GetWorkerCapacity();
-                int leftAssembleDetails = unit.GeneralCountDetails - unit.CurrentAddedDetails;
-                int countDetailsToAssemble = workerCapacity >= leftAssembleDetails ? leftAssembleDetails : workerCapacity;
-                unit.CurrentAddedDetails += countDetailsToAssemble;
-                Logger.LogInfo($"Worker {this.Name} added {countDetailsToAssemble} detail(s) to {unit.Name}");
-            }
+            int leftAssembleDetails = unit.GeneralCountDetails - unit.CurrentAddedDetails;
+            int countDetailsToAssemble = WorkerCapacity >= leftAssembleDetails ? leftAssembleDetails : WorkerCapacity;
+            unit.CurrentAddedDetails += countDetailsToAssemble;
+            Logger.LogInfo($"Worker {this.Name} added {countDetailsToAssemble} detail(s) to {unit.Name}"); 
         }
-         public int GetWorkerCapacity()
-        {
-            int workerCapacity;
-            switch (this.Experience)
-            {
-                case "experienced":
-                    workerCapacity = 4;
-                    break;
-                case "inexperienced":
-                    workerCapacity = 1;
-                    break;
-                case "master":
-                    workerCapacity = 5;
-                    break;
-                default:
-                    workerCapacity = 0;
-                    break;
+
+        internal void DoWorkWithUnits(List<Unit> unitsForWorker) {
+            foreach (var item in unitsForWorker) {
+                UnitAssembly(item);
             }
-            return workerCapacity;
         }
     }
 }

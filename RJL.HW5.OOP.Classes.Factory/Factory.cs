@@ -9,11 +9,13 @@ namespace RJL.HW5.OOP.Classes.Factory
     class Factory
     {
         public readonly List<Order> Orders = new List<Order>();
-        public Order CurrentFreeOrder { get; private set; }
+
         public readonly List<Worker> Workers = new List<Worker>();
+
         public WorkerManager Manager { get; private set; }
 
         public string Name { get; private set; }
+
         public Country Country { get; private set; }
 
         public Factory(Country country, string name, List<Worker> workers, WorkerManager manager)
@@ -26,100 +28,50 @@ namespace RJL.HW5.OOP.Classes.Factory
 
         private void ExecuteWorkingDay()
         {
+            if (Orders.Count == 0 || Manager.IsAllOrdersCompleted(Orders)) {
+                GetOrdersFromCountry();
+            }
+
             foreach (var worker in this.Workers)
             {
-                if (CurrentFreeOrder == null)
+                List<Unit> unitsForWorker = null;
+                if(!Manager.TryGetFreeUnitsForWorkerCapacity(worker.WorkerCapacity, out unitsForWorker))
                 {
-                    Logger.LogWarning("There is no free orders. Generate the new ones");
-                    this.Orders.Clear();
-                    Logger.LogWithoutDate("----------------------------------------------------------");
-                    this.Orders.AddRange(Country.GetOrders());
-                    PrintOrders();
-                    CurrentFreeOrder = Orders[0];
-                    Logger.LogWithoutDate("----------------------------------------------------------");
+                    Console.Write("Today Factory was stopped because no orders were ready. Please be on time tomorrow at job because today we plan get enough orders");
+                    GetOrdersFromCountry();
+                    return;
                 }
-                if (isWorkingDayEnded())
-                {
-                    break;
-                }
-                Unit currentFreeUnit = Manager.GetFreeUnitfromOrder(this.CurrentFreeOrder);
-                if (currentFreeUnit != null)
-                {
-                    worker.UnitAssembly(currentFreeUnit);
-                }
-                if (CurrentFreeOrder != Manager.GetFreeOrder(Orders))
-                {
-                    Logger.LogWithoutDate("----------------------------------------------");
-                    Logger.LogInfo($"Order number {CurrentFreeOrder.Number} is completed");
-                    Logger.LogWithoutDate("----------------------------------------------");
+                worker.DoWorkWithUnits(unitsForWorker);
+            }
+        }
 
-                    CurrentFreeOrder = Manager.GetFreeOrder(Orders);
-                    if (CurrentFreeOrder != null)
-                    {
-                        Logger.LogWithoutDate("----------------------------------------------");
-                        Logger.LogInfo($"Start working on order number {CurrentFreeOrder.Number}");
-                        Logger.LogWithoutDate("----------------------------------------------");
-                    }
-                }
-            }
+        private void GetOrdersFromCountry() {
+            Logger.LogWarning("There is no free orders. Generate the new ones");
+            this.Orders.Clear();
+            this.Orders.AddRange(Country.GetOrders());
         }
-    private void ExecuteWorkingMonth()
-    {
-        for (int i = 0; i < 30; i++)
-        {
-            Date2.CountDay = i + 1;
-            Logger.LogWithoutDate("-----------------------------------------------------");
-            Logger.LogInfo($"New working day has been started");
-            Logger.LogWithoutDate("-----------------------------------------------------");
-            this.ExecuteWorkingDay();
-            StartNewWorkDay();
-        }
-    }
-    public void ExecuteWorkingYear()
-    {
-        Logger.LogWithoutDate("-----------------------------------------------------");
-        Logger.LogInfo("New working year has been started");
-        Logger.LogWithoutDate("-----------------------------------------------------");
-        for (int i = 0; i < 12; i++)
-        {
-            Date2.CountMonth = i + 1;
-            Logger.LogWithoutDate("-----------------------------------------------------");
-            Logger.LogInfo($"New working month  has been started");
-            Logger.LogWithoutDate("-----------------------------------------------------");
-            this.ExecuteWorkingMonth();
-        }
-    }
-    public void StartNewWorkDay()
-    {
-        foreach (var worker in this.Workers)
-        {
-            worker.isWorkDayEnded = false;
-        }
-    }
-    public bool isWorkingDayEnded()
-    {
-        int workerCounter = 0;
-        foreach (var worker in this.Workers)
-        {
-            if (worker.isWorkDayEnded)
-            {
-                workerCounter++;
-            }
-        }
-        return workerCounter == Workers.Count;
 
-    }
-    public bool isAllOrdersCompleted()
-    {
-        foreach (var order in this.Orders)
+        private void ExecuteWorkingMonth()
         {
-            if (order.isOrderCompleted == false)
+            for (int i = 0; i < 30; i++)
             {
-                return false;
+                Date2.CountDay = i + 1;
+                Logger.LogInfo($"New working day has been started");
+                this.ExecuteWorkingDay();
             }
         }
-        return true;
-    }
+
+        public void ExecuteWorkingYear()
+        {
+            Logger.LogInfo("New working year has been started");
+            for (int i = 0; i < 12; i++)
+            {
+                Date2.CountMonth = i + 1;
+                Logger.LogInfo($"New working month  has been started");
+                this.ExecuteWorkingMonth();
+            }
+        }
+
         public void PrintOrders()
         {
             foreach (var order in this.Orders)
@@ -127,9 +79,9 @@ namespace RJL.HW5.OOP.Classes.Factory
                 order.PrintOrder();
             }
         }
+
         public void PrintWorkersTeam()
         {
-            Console.WriteLine("-----------------------------------------------------");
             Console.WriteLine($"Factory '{Name}' has next workers:");
             Console.WriteLine($"--Manager  {Manager.Name} with salary {Manager.Salary}");
             Console.WriteLine("--Worker's team consists of:");
@@ -137,7 +89,6 @@ namespace RJL.HW5.OOP.Classes.Factory
             {
                 Console.WriteLine($"  {i + 1}.{Workers[i].Name} {Workers[i].Experience} with salary {Workers[i].Salary}");
             }
-            Console.WriteLine("-----------------------------------------------------");
         }
     }
 }
