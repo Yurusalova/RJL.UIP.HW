@@ -50,6 +50,7 @@ namespace RJL.UIP.HW6.OOP.Classes
         public static void ChainCreation(List<Device> devices, Generator generator)
         {
             Device lastConnectedDevice = null;
+            generator.IsConnectToGenerator = true;
             if (devices != null)
             {
                 //connect first device to generator
@@ -89,12 +90,15 @@ namespace RJL.UIP.HW6.OOP.Classes
         }
         public static void PrintDevicesInGenerator(Device device)
         {
-            Console.WriteLine(device.Id + " " + device.GetType().Name + " " + device.Model + " " + device.Power);
-            if (device.NextDeviceInChain == null)
+            if (!device.IsConnectToGenerator)
             {
                 return;
             }
-            PrintDevicesInGenerator(device.NextDeviceInChain);
+            Console.WriteLine(device.Id + " " + device.GetType().Name + " " + device.Model + " " + device.Power);
+            if (device.NextDeviceInChain != null)
+            {
+                PrintDevicesInGenerator(device.NextDeviceInChain);
+            }
         }
         public static void DisconnectDeviceFromGenerator(Device device, int idDeviceForDisconnect)
         {
