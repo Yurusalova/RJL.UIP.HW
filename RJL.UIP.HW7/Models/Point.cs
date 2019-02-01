@@ -16,11 +16,10 @@ namespace RJL.UIP.HW7.Models
 
         public int Y { get; private set; }
 
-        public Point(int x, int y, Logger logger)
+        public Point(int x, int y)
         {
             this.X = x;
             this.Y = y;
-            logger.Info($"There was created point with coordinates ({this.X},{this.Y})");
         }
 
         public void PrintPoint()

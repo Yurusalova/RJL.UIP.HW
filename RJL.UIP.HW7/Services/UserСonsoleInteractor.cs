@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace RJL.UIP.HW7.Services
 {
-   public static class InputValidator
+    public static class UserСonsoleInteractor
     {
-        public static int IntegerValueInputValidate(Logger logger)
+        public static int GetPositiveIntValueFromConsoleInput(Logger logger)
         {
             int resultIntInput = 0;
             bool isValidInputInt;
@@ -27,30 +27,11 @@ namespace RJL.UIP.HW7.Services
                 else
                 {
                     Console.WriteLine($"=> Invalid number. Repeat input of value");
-                    logger.Error("invalid value was inputed from console ");
+                    logger.Error("--invalid value was inputed from console ");
                 }
             } while (!isValidInputInt);
 
             return resultIntInput;
-        }
-        public static string YesNoValueInputValidate(Logger logger)
-        {
-            string resultStringInput = null;
-            bool isValidInputInt;
-            do
-            {
-                resultStringInput = Console.ReadLine();
-                logger.Info($"value {resultStringInput} was inputed from Console  ");
-                isValidInputInt = (resultStringInput=="Y"||resultStringInput == "N") && !string.IsNullOrWhiteSpace(resultStringInput);
-
-                if (!isValidInputInt)
-                {
-                    Console.WriteLine($"=> Invalid value. Repeat input");
-                    logger.Error("invalid value was inputed from console ");
-                }
-            } while (!isValidInputInt);
-
-            return resultStringInput;
         }
     }
 }

@@ -20,8 +20,7 @@ namespace RJL.UIP.HW7.LoggerLibrary.Services
 
         public void AddMessage(LogRecord logRecord)
         {
-            string writePath = $@"{this.PathToFolder}log.txt";
-            using (StreamWriter sw = new StreamWriter(writePath, true))
+            using (StreamWriter sw = new StreamWriter(this.PathToFolder, true))
             {
                 sw.WriteLine("FileStorage " + logRecord.ToString());
             }

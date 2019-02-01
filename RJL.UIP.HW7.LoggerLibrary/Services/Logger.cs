@@ -52,7 +52,7 @@ namespace RJL.UIP.HW7.LoggerLibrary.Services
             }
             LogRecord logRecord = new LogRecord()
             {
-                Id = IdCounter,
+                Id = ++IdCounter,
                 Message = message,
                 DateTime = DateTime.Now,
                 LogLevel = logLevel
@@ -62,7 +62,6 @@ namespace RJL.UIP.HW7.LoggerLibrary.Services
             {
                 storage.AddMessage(logRecord);
             }
-            IdCounter++;
         }
     }
 }

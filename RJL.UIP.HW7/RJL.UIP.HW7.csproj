@@ -46,15 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\DiagonalLine.cs" />
-    <Compile Include="Models\HorizontalLine.cs" />
     <Compile Include="Models\Point.cs" />
-    <Compile Include="Models\VerticalLine.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AreaCalculator.cs" />
-    <Compile Include="Services\InputValidator.cs" />
-    <Compile Include="Services\PointsManagment.cs" />
+    <Compile Include="Services\UserСonsoleInteractor.cs" />
+    <Compile Include="Services\PointsHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -27,7 +27,7 @@ namespace RJL.UIP.HW7.Services
             return result;
         }
 
-        public static long CompareCalculateArea(List<Point> points,Logger logger) {
+        public static long GetValidatedArea(List<Point> points,Logger logger) {
             logger.Info("Calculating area of input points");
             long resultX = CalculateArea(points,true);
             long resultY = CalculateArea(points, false);
