@@ -15,14 +15,18 @@ namespace RJL.UIP.HW7
     {
         static void Main(string[] args)
         {
-
             List<IStorage> storages = new List<IStorage>() {
                 new ConsoleStorage(),
                 new FileStorage(@"C:\Users\Rusalovay\Documents\My\UIP\Files\log.txt")
             };
             Logger logger = new Logger(storages);
             List<Point> points = PointsHandler.CreatePointsFromInput(logger);
+            PrintPointsIfRequired(logger,points);
+            ValidateAndCalculateArea(logger, points);
+            Console.ReadLine();
+        }
 
+        static void PrintPointsIfRequired(Logger logger, List<Point> points) {
             Console.WriteLine("--Enter Y if you want to print points otherwise press any key");
             if (Console.ReadLine() == "Y")
             {
@@ -30,7 +34,9 @@ namespace RJL.UIP.HW7
                 Console.WriteLine();
                 logger.Info("Points were printed");
             }
-            
+        }
+
+        static void ValidateAndCalculateArea(Logger logger, List<Point> points) {
             long result = AreaCalculator.GetValidatedArea(points, logger);
             if (result != 0)
             {
@@ -40,7 +46,6 @@ namespace RJL.UIP.HW7
             {
                 Console.WriteLine("--Calculating of area square is incorrect.Please input valid coordinates of points");
             }
-            Console.ReadLine();
         }
     }
 }

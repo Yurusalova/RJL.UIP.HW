@@ -18,19 +18,17 @@ namespace RJL.UIP.HW7.Services
                 string resultStringInput = Console.ReadLine();
                 logger.Info($"value {resultStringInput} was input from Console  ");
                 bool isInputInt = int.TryParse(resultStringInput, out int resultIntFromInput);
-                isValidInputInt = isInputInt && resultIntFromInput >= 0 && !string.IsNullOrWhiteSpace(resultStringInput);
-
+                isValidInputInt = isInputInt && resultIntFromInput > 0;
                 if (isValidInputInt)
                 {
                     resultIntInput = resultIntFromInput;
                 }
                 else
                 {
-                    Console.WriteLine($"=> Invalid number. Repeat input of value");
-                    logger.Error("--invalid value was inputed from console ");
+                    logger.Error("invalid value was inputed from console ");
+                    Console.WriteLine($"--Invalid number. Repeat input of value");
                 }
             } while (!isValidInputInt);
-
             return resultIntInput;
         }
     }

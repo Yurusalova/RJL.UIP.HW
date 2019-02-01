@@ -8,24 +8,32 @@ using System.Threading.Tasks;
 
 namespace RJL.UIP.HW7.Services
 {
-  public static  class PointsHandler
+    public static class PointsHandler
     {
-        public static void PrintPoints(List<Point> points) {
-                Console.Clear();
-                foreach (var point in points)
-                {
-                   point.PrintPoint();
-                }
-         }
+        public static void PrintPoints(List<Point> points)
+        {
+            Console.Clear();
+            foreach (var point in points)
+            {
+                PrintPoint(point);
+            }
+        }
 
-        public static List<Point> CreatePointsFromInput(Logger logger) {
+        public static void PrintPoint(Point point)
+        {
+            Console.SetCursorPosition(point.X, point.Y);
+            Console.Write("*");
+        }
+
+        public static List<Point> CreatePointsFromInput(Logger logger)
+        {
             List<Point> Points = new List<Point>();
             logger.Info("Entering count of points");
             Console.WriteLine("--Enter count of points");
             int countPoints = UserСonsoleInteractor.GetPositiveIntValueFromConsoleInput(logger);
             for (int i = 0; i < countPoints; i++)
             {
-                int x = GetPointCoordinateFromInput(i,"x",logger);
+                int x = GetPointCoordinateFromInput(i, "x", logger);
                 int y = GetPointCoordinateFromInput(i, "y", logger);
                 Point point = new Point(x, y);
                 Points.Add(point);
@@ -33,10 +41,12 @@ namespace RJL.UIP.HW7.Services
             }
             return Points;
         }
-        public static int GetPointCoordinateFromInput(int pointCount,string pointType, Logger logger) {
+
+        public static int GetPointCoordinateFromInput(int pointCount, string pointType, Logger logger)
+        {
             logger.Info($"Entering coordinate {pointType} for point number {pointCount + 1}");
             Console.WriteLine($"--Enter coordinate {pointType} for point number {pointCount + 1}");
-            return  UserСonsoleInteractor.GetPositiveIntValueFromConsoleInput(logger);
+            return UserСonsoleInteractor.GetPositiveIntValueFromConsoleInput(logger);
         }
     }
 }

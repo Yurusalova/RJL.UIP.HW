@@ -21,11 +21,5 @@ namespace RJL.UIP.HW7.Models
             this.X = x;
             this.Y = y;
         }
-
-        public void PrintPoint()
-        {
-            Console.SetCursorPosition(X, Y);
-            Console.Write("*");
-        }
     }
 }
