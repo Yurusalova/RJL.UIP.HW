@@ -45,7 +45,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AreaCalculator.cs" />
     <Compile Include="Services\Logger.cs" />
-    <Compile Include="Services\LogHandler.cs" />
     <Compile Include="Services\PointValidator.cs" />
   </ItemGroup>
   <ItemGroup>

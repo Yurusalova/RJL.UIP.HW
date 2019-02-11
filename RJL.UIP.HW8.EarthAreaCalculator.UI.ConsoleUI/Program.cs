@@ -17,7 +17,11 @@ namespace RJL.UIP.HW8.EarthAreaCalculator.UI.ConsoleUI
         static void Main(string[] args)
         {
             AppContainer.ConfigureContainer();
-            new UserСonsoleInteractor().StartMainMenu();
+            string[] menuiItems = new string[] {"start new calculation area",
+                                                "view logs",
+                                                "clear console",
+                                                "quit"};
+            new UserСonsoleInteractor().StartMenu(menuiItems,1);
             Console.ReadLine();
         }
     }

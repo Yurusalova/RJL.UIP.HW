@@ -23,7 +23,6 @@ namespace RJL.UIP.EarthAreaCalculator.Core.DI
             builder.RegisterType<StorageManager>().As<IStorageManager>().SingleInstance();
             builder.RegisterType<PointsValidator>().As<IPointsValidator>();
             builder.RegisterType<AreaCalculator>().As<IAreaCalculator>().SingleInstance();
-            builder.RegisterType<LogHandler>().As<ILogHandler>().SingleInstance();
             builder.RegisterType<Logger>().As<ILogger>().SingleInstance();
 
             _container = builder.Build();

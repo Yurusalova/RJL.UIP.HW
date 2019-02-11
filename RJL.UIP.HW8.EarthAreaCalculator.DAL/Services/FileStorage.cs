@@ -8,28 +8,27 @@ using Newtonsoft.Json;
 using RJL.UIP.HW8.EarthAreaCalculator.Shared.Interfaces;
 using RJL.UIP.HW8.EarthAreaCalculator.Shared.Models;
 using Newtonsoft.Json.Linq;
+using RJL.UIP.HW8.EarthAreaCalculator.Shared.Services;
 
 namespace RJL.UIP.HW8.EarthAreaCalculator.DAL.Services
 {
     public class FileStorage : IFileStorage
     {
+        private JSONSerializer JSONSerializer = new JSONSerializer();
+
         public string PathToFolder { get; private set; } = @"C:\Users\Rusalovay\Documents\My\UIP\Files\log.txt";
         //need to add logic for getting PathToFolder from File
 
-        public void AddMessage(List<LogRecord> logRecords,int colorNumber)
+        public void AddMessageToStorage(List<LogRecord> logRecords,int colorNumber)
         {
             using (StreamWriter sw = new StreamWriter(PathToFolder, false))
             {
-                    string json = Serialize(logRecords);
+                    string json = JSONSerializer.Serialize(logRecords);
                     sw.WriteLine(json);
             }
         }
-        public string Serialize<T>(T obj)
-        {
-            return JsonConvert.SerializeObject(obj);
-        }
 
-        public List<LogRecord> LoadLogs()
+        public List<LogRecord> GetAllLogs()
         {
             List<LogRecord> logrecords = new List<LogRecord>();
             using (StreamReader sr = new StreamReader(PathToFolder, System.Text.Encoding.Default))
@@ -37,13 +36,13 @@ namespace RJL.UIP.HW8.EarthAreaCalculator.DAL.Services
                 string json = sr.ReadToEnd();
                 if (json != null)
                 {
-                    logrecords = JsonConvert.DeserializeObject<List<LogRecord>>(json);
-                }
+                    logrecords = JSONSerializer.Deserialize<List<LogRecord>>(json);
+                   }
             }
             return logrecords;
         }
 
-        public void CreateNewFile() {
+        public void ClearAllLogs() {
             using (StreamWriter sw = new StreamWriter(PathToFolder, false))
             {
             }

@@ -8,6 +8,8 @@ namespace RJL.UIP.HW8.EarthAreaCalculator.Shared.Interfaces
 {
     public interface IStorageManager
     {
-        List<IStorage> AddStorages();
+        List<IStorage> CreateStorages();
+        void AddStorages(List<IStorage> storages, IStorage storage);
+        void RemoveStorages(List<IStorage> storages, IStorage storage);
     }
 }

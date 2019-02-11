@@ -14,42 +14,52 @@ namespace RJL.UIP.HW8.EarthAreaCalculator.UI.ConsoleUI.Services
     {
         public ILogger Logger { get; set; }
 
+        private LogHandlerUI LogHandlerUI = new LogHandlerUI();
+
         public UserСonsoleInteractor()
         {
-           Logger = AppContainer.Resolve<ILogger>();
+            Logger = AppContainer.Resolve<ILogger>();
         }
 
-        public void StartMainMenu()
+        public void StartMenu(string[] menuiItems, int LevelMenu)
         {
-            string[] menuiItems = new string[] {"start new calculation area",
-                                                "view logs",
-                                                "clear console",
-                                                "quit"};
             int indexCommand;
             do
             {
                 indexCommand = GetCommandFromOptionMenu(menuiItems);
-                ChooseOptionMenu(indexCommand);
+                if (LevelMenu == 1)
+                {
+                    ChooseOptionMainMenu(indexCommand);
+                }
+                else if (LevelMenu == 2)
+                {
+                    LogHandlerUI.ChooseOptionMenu(indexCommand);
+                }
             }
-            while (indexCommand != 3);
+            while (indexCommand != menuiItems.Length - 1);
         }
 
         private int GetCommandFromOptionMenu(string[] menuItems)
         {
-            Console.WriteLine("---------------------------NEW COMMAND----------------------------");
-            Console.WriteLine("Please write the index of command from the list below. Commands:");
-            for (int i = 0; i < menuItems.Length; i++)
+            bool isSuccessResultInput = false;
+            int inputIntResult = 0;
+            do
             {
-                Console.WriteLine($"[{i}] = {menuItems[i]}");
-            }
-            Console.WriteLine("-------------------------------------------------------------------");
-            string inputResult = Console.ReadLine();
-            int inputIntResult;
-            bool isSuccessInput = int.TryParse(inputResult, out inputIntResult);
+                Console.WriteLine("---------------------------NEW COMMAND----------------------------");
+                Console.WriteLine("Please write the index of command from the list below. Commands:");
+                for (int i = 0; i < menuItems.Length; i++)
+                {
+                    Console.WriteLine($"[{i}] = {menuItems[i]}");
+                }
+                Console.WriteLine("-------------------------------------------------------------------");
+                string inputResult = Console.ReadLine();
+                bool isSuccessInput = int.TryParse(inputResult, out inputIntResult);
+                isSuccessResultInput = isSuccessInput && inputIntResult >= 0 && inputIntResult < menuItems.Length;
+            } while (!isSuccessResultInput);
             return inputIntResult;
         }
 
-        private void ChooseOptionMenu(int inputIntResult)
+        private void ChooseOptionMainMenu(int inputIntResult)
         {
             switch (inputIntResult)
             {
@@ -57,10 +67,16 @@ namespace RJL.UIP.HW8.EarthAreaCalculator.UI.ConsoleUI.Services
                     new AreaCalculatorUI().StartCalculation(Logger);
                     break;
                 case 1:
-                    new LogHandlerUI().StartMenu();
+                    string[] menuiItems = new string[] {"show all logs",
+                                                "show only info logs",
+                                                "show only error logs",
+                                                "show logs for today",
+                                                "clear file with logs ",
+                                                "back to main menu"};
+                    StartMenu(menuiItems, 2);
                     break;
                 case 2:
-                    Console.Clear(); 
+                    Console.Clear();
                     break;
                 case 3:
                     Console.WriteLine("Good bye!");

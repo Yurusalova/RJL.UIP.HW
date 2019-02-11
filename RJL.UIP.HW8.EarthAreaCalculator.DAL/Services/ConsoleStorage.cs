@@ -11,7 +11,7 @@ namespace RJL.UIP.HW8.EarthAreaCalculator.DAL.Services
 
     public class ConsoleStorage : IConsoleStorage
     {
-        public void AddMessage(List<LogRecord> logRecords, int colorNumber)
+        public void AddMessageToStorage(List<LogRecord> logRecords, int colorNumber)
         {
             foreach (var logRecord in logRecords)
             {
@@ -21,12 +21,12 @@ namespace RJL.UIP.HW8.EarthAreaCalculator.DAL.Services
             }
         }
 
-        public List<LogRecord> LoadLogs()
+        public List<LogRecord> GetAllLogs()
         {
             return null;
         }
 
-        public void CreateNewFile()
+        public void ClearAllLogs()
         {
         }
 

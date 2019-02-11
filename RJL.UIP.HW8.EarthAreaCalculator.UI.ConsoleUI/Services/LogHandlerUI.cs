@@ -11,8 +11,12 @@ namespace RJL.UIP.HW8.EarthAreaCalculator.UI.ConsoleUI.Services
 {
     internal class LogHandlerUI
     {
-        public ILogHandler LogHandler;
+        private IFileStorage FileStorage;
 
+        public LogHandlerUI()
+        {
+              FileStorage = AppContainer.Resolve<IFileStorage>();
+        }
         public void StartMenu()
         {
             string[] menuiItems = new string[] {"show all logs",
@@ -30,10 +34,7 @@ namespace RJL.UIP.HW8.EarthAreaCalculator.UI.ConsoleUI.Services
             while (indexCommand != 5);
         }
 
-        public LogHandlerUI()
-        {
-            LogHandler = AppContainer.Resolve<ILogHandler>();
-        }
+        
 
         private int GetCommandFromOptionMenu(string[] menuItems)
         {
@@ -50,24 +51,24 @@ namespace RJL.UIP.HW8.EarthAreaCalculator.UI.ConsoleUI.Services
             return inputIntResult;
         }
 
-        private void ChooseOptionMenu(int inputIntResult)
+        public void ChooseOptionMenu(int inputIntResult)
         {
             switch (inputIntResult)
             {
                 case 0:
-                    PrintLogs(LogHandler.ShowAllLogs());
+                    PrintLogs(FileStorage.GetAllLogs());
                     break;
                 case 1:
-                    PrintLogsByType(LogLevel.Info);
+                    GetLogsByLoglevel(LogLevel.Info);
                     break;
                 case 2:
-                    PrintLogsByType(LogLevel.Error);
+                    GetLogsByLoglevel(LogLevel.Error);
                     break;
                 case 3:
                     Console.WriteLine("this function was not provided yet");
                     break;
                 case 4:
-                    LogHandler.ClearAllLogs();
+                    FileStorage.ClearAllLogs();
                     Console.WriteLine("File was cleared");
                     break;
                 case 5:
@@ -89,8 +90,8 @@ namespace RJL.UIP.HW8.EarthAreaCalculator.UI.ConsoleUI.Services
             Console.BackgroundColor = 0;
         }
 
-        private void PrintLogsByType(LogLevel logLevel) {
-            List<LogRecord> logrecords = LogHandler.ShowAllLogs();
+        private void GetLogsByLoglevel(LogLevel logLevel) {
+            List<LogRecord> logrecords = FileStorage.GetAllLogs();
             var selectedLogRecords = from t in logrecords 
                                 where t.LogLevel.Equals(logLevel) 
                                 select t;

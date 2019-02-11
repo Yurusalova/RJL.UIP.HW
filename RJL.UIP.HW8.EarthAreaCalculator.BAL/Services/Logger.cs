@@ -22,7 +22,7 @@ namespace RJL.UIP.HW8.EarthAreaCalculator.BAL.Services
         public Logger(IStorageManager storageManager)
         {
             StorageManager = storageManager;
-            Storages = storageManager.AddStorages();
+            Storages = storageManager.CreateStorages();
         }
 
         public void Debug(string message)
@@ -66,12 +66,12 @@ namespace RJL.UIP.HW8.EarthAreaCalculator.BAL.Services
             foreach (var storage in Storages)
             {
                 List<LogRecord> Buffer = new List<LogRecord>();
-                if (storage.LoadLogs() != null)
+                if (storage.GetAllLogs() != null)
                 {
-                    Buffer = storage.LoadLogs();
+                    Buffer = storage.GetAllLogs();
                 }
                 Buffer.Add(logRecord);
-                storage.AddMessage(Buffer, colorNumber);
+                storage.AddMessageToStorage(Buffer, colorNumber);
             }
         }
     }

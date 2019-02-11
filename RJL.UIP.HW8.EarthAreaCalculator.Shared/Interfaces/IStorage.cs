@@ -9,9 +9,9 @@ namespace RJL.UIP.HW8.EarthAreaCalculator.Shared.Interfaces
 {
     public interface IStorage
     {
-        void AddMessage(List<LogRecord> logRecord, int ColorNumber);
-        List<LogRecord> LoadLogs();
-        void CreateNewFile();
+        void AddMessageToStorage(List<LogRecord> logRecord, int ColorNumber);
+        List<LogRecord> GetAllLogs();
+        void ClearAllLogs();
         string GetLogsByType(String type);
         string GetLogsByDate(DateTime date);
     }
