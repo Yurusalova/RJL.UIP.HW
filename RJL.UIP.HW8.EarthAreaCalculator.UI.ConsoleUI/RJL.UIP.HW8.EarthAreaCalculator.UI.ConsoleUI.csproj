@@ -4,16 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{186C0AD4-4DA5-4A0C-B485-D83B316C0F4F}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RJL.UIP.HW7.LoggerLibrary</RootNamespace>
-    <AssemblyName>RJL.UIP.HW7.LoggerLibrary</AssemblyName>
+    <ProjectGuid>{BFA4DC6F-5AD0-469C-82A1-87247F5E3DD7}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>RJL.UIP.HW8.EarthAreaCalculator.UI.ConsoleUI</RootNamespace>
+    <AssemblyName>RJL.UIP.HW8.EarthAreaCalculator.UI.ConsoleUI</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -31,10 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\CommonExtensions\Microsoft\NuGet\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,16 +41,36 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\ILogger.cs" />
-    <Compile Include="Interfaces\IStorage.cs" />
-    <Compile Include="Models\LogRecord.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\ConsoleStorage.cs" />
-    <Compile Include="Services\FileStorage.cs" />
-    <Compile Include="Services\Logger.cs" />
+    <Compile Include="Services\AreaCalculatorUI.cs" />
+    <Compile Include="Services\LogHandlerUI.cs" />
+    <Compile Include="Services\PointsHandlerUI.cs" />
+    <Compile Include="Services\UserСonsoleInteractor.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RJL.UIP.EarthAreaCalculator.Core\RJL.UIP.EarthAreaCalculator.Core.csproj">
+      <Project>{6464AB39-C785-4182-BBB8-23950DD10DF2}</Project>
+      <Name>RJL.UIP.EarthAreaCalculator.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RJL.UIP.HW8.EarthAreaCalculator.BAL\RJL.UIP.HW8.EarthAreaCalculator.BAL.csproj">
+      <Project>{B34A1D7C-1E51-4B1E-A52D-2D64308B706C}</Project>
+      <Name>RJL.UIP.HW8.EarthAreaCalculator.BAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RJL.UIP.HW8.EarthAreaCalculator.DAL\RJL.UIP.HW8.EarthAreaCalculator.DAL.csproj">
+      <Project>{2137BBF6-629B-4BB4-9675-91923D0172BD}</Project>
+      <Name>RJL.UIP.HW8.EarthAreaCalculator.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RJL.UIP.HW8.EarthAreaCalculator.Shared\RJL.UIP.HW8.EarthAreaCalculator.Shared.csproj">
+      <Project>{28637CBA-65CA-4487-8CB5-8A1BD7EBE2CD}</Project>
+      <Name>RJL.UIP.HW8.EarthAreaCalculator.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

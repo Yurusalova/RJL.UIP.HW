@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{186C0AD4-4DA5-4A0C-B485-D83B316C0F4F}</ProjectGuid>
+    <ProjectGuid>{2137BBF6-629B-4BB4-9675-91923D0172BD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RJL.UIP.HW7.LoggerLibrary</RootNamespace>
-    <AssemblyName>RJL.UIP.HW7.LoggerLibrary</AssemblyName>
+    <RootNamespace>RJL.UIP.HW8.EarthAreaCalculator.DAL</RootNamespace>
+    <AssemblyName>RJL.UIP.HW8.EarthAreaCalculator.DAL</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -45,14 +45,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\ILogger.cs" />
-    <Compile Include="Interfaces\IStorage.cs" />
-    <Compile Include="Models\LogRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ConsoleStorage.cs" />
     <Compile Include="Services\FileStorage.cs" />
-    <Compile Include="Services\Logger.cs" />
+    <Compile Include="Services\StorageManager.cs" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\RJL.UIP.HW8.EarthAreaCalculator.Shared\RJL.UIP.HW8.EarthAreaCalculator.Shared.csproj">
+      <Project>{28637CBA-65CA-4487-8CB5-8A1BD7EBE2CD}</Project>
+      <Name>RJL.UIP.HW8.EarthAreaCalculator.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
